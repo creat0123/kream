@@ -27,12 +27,15 @@ public class BoardController {
 		return "board/policy";
 	}
 
+<<<<<<< HEAD
 	// 공지사항
 	@RequestMapping("notice")
 	public String notice() {
 		return "board/notice";
 	}
 
+=======
+>>>>>>> e723f6bb593ff26df1e187fd04c57a041f239ea4
 	@Autowired
 	private BoardService service;
 

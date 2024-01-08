@@ -9,7 +9,11 @@
 	position: absolute; /* 위치 조정 */
 	top: 250px; /* 헤더 높이에 맞춤 */
 	left: 150px;
+<<<<<<< HEAD
 	width: 150px; /* 사이드바 너비 설정 */
+=======
+	width: 110px; /* 사이드바 너비 설정 */
+>>>>>>> e723f6bb593ff26df1e187fd04c57a041f239ea4
 	background-color: #f1f1f1;
 	padding: 20px;
 	display: flex;
@@ -52,8 +56,13 @@
 }
 
 .board {
+<<<<<<< HEAD
 	margin-top : 40px;
 	margin-left : 730px;
+=======
+	margin: 0 auto; /* 수평 가운데 정렬을 위한 스타일 */
+	margin-top: 150px;
+>>>>>>> e723f6bb593ff26df1e187fd04c57a041f239ea4
 }
 
 .board input[type="text"], .board input[type="email"], .board input[type="password"],

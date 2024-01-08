@@ -6,6 +6,10 @@ import java.util.ArrayList;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< HEAD
+=======
+import org.springframework.stereotype.Component;
+>>>>>>> e723f6bb593ff26df1e187fd04c57a041f239ea4
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 

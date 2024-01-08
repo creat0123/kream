@@ -99,7 +99,12 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+<<<<<<< HEAD
 
+=======
+		
+		
+>>>>>>> e723f6bb593ff26df1e187fd04c57a041f239ea4
 	
 	</dependencies>
 

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+
+<mapper namespace="com.kream.member.IMemberMapper">
+
+	<!-- IMemberMapper.xml -->
+
+<select id="login" resultType="com.kream.member.MemberDTO">
+    SELECT * FROM member WHERE id = #{id}
+</select>
+
+<insert id="registProc">
+    INSERT INTO member 
+    VALUES(null, #{name}, #{id}, #{pw}, #{tel}, #{email}, #{address})
+</insert>
+
+<update id="updateProc">
+    UPDATE member SET name=#{name}, pw=#{pw}, tel=#{tel}, email=#{email}, address=#{address} WHERE id=#{id}
+</update>
+
+<delete id="deleteProc">
+    DELETE FROM member WHERE id=#{id}
+</delete>
+
+<select id="totalCount">
+    <choose>
+        <when test="select == 'id'">
+            SELECT COUNT(id) FROM member WHERE id LIKE '%' || #{search} || '%'     
+        </when>
+        <when test="select == 'tel'">
+            SELECT COUNT(id) FROM member WHERE tel LIKE '%' || #{search} || '%' 
+        </when>
+        <otherwise>
+            SELECT COUNT(id) FROM member
+        </otherwise>
+    </choose>
+</select>
+
+
+    
+    
+</mapper>

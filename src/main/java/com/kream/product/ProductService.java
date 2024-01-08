@@ -1,5 +1,6 @@
 package com.kream.product;
 
+<<<<<<< HEAD
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,4 +137,8 @@ public class ProductService {
 	
 	
 	
+=======
+public class ProductService {
+
+>>>>>>> e723f6bb593ff26df1e187fd04c57a041f239ea4
 }

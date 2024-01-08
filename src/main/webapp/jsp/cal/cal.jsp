@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
+=======
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
+<html lang="en">
+>>>>>>> e723f6bb593ff26df1e187fd04c57a041f239ea4
 <link rel="icon" href="/img/A.png">
 <head>
 <meta charset="UTF-8">
@@ -123,6 +129,17 @@
 	margin-top: .2rem;
 }
 
+<<<<<<< HEAD
+=======
+.addScheduleBtn{
+	width: 10%;
+    position: relative;
+    left: 90%;
+    margin-top: 1%;
+    margin-bottom: 2%;
+}
+
+>>>>>>> e723f6bb593ff26df1e187fd04c57a041f239ea4
 /* ------------- */
 @import
 	url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css")
@@ -141,11 +158,29 @@
 	<%@ include file="../default/header.jsp"%>
 	<div class='rap'>
 		<div class="header">
+<<<<<<< HEAD
 			<div class="btn prevDay"></div>
 			<h2 class='dateTitle'></h2>
 			<div class="btn nextDay"></div>
 		</div>
 
+=======
+		
+			<div class="btn prevDay"></div>
+			<h2 class='dateTitle'></h2>
+			<div class="btn nextDay"></div>
+			
+			
+		</div>
+		<c:choose>
+                <c:when test="${sessionScope.id eq 'admin'}">
+                    <button class="addScheduleBtn">일정 추가</button>
+                </c:when>
+                <c:otherwise>
+                    <!-- 아무 작업 안 함 또는 다른 작업 수행 -->
+                </c:otherwise>
+            </c:choose>
+>>>>>>> e723f6bb593ff26df1e187fd04c57a041f239ea4
 		<div class="grid dateHead">
 			<div>일</div>
 			<div>월</div>
