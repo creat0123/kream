@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kream.board.IBoardMapper">
+	<select id="getCount" resultType="Integer">
+		SELECT count(*) FROM kream_board
+	</select>
+
+	<select id="getList" resultType="com.kream.board.BoardDTO">
+		SELECT * FROM (
+		SELECT ROW_NUMBER() OVER (ORDER BY ref DESC, step ASC) AS rn, A.*
+		FROM (SELECT * FROM kream_board ORDER BY ref DESC, step ASC) A
+		) AS numbered
+		WHERE rn BETWEEN #{begin} AND #{end}
+	</select>
+
+	<select id="maxNum" resultType="Integer">
+		SELECT COALESCE(MAX(num), 0) + 1 FROM kream_board
+	</select>
+
+	<update id="updateStep">
+		UPDATE kream_board SET step = step + 1 WHERE ref = #{ref} AND step > #{step}
+	</update>
+
+	<insert id="write">
+		<selectKey order="BEFORE" keyProperty="num" resultType="int">
+			SELECT COALESCE(MAX(num), 0) + 1 FROM kream_board
+		</selectKey>
+		INSERT INTO kream_board (num, writer, email, subject, pass, readcount,
+		ref, step, depth, regDate, ip, content)
+		VALUES (#{num}, #{writer}, #{email}, #{subject}, #{pass}, 0, #{ref},
+		#{step}, #{depth}, #{regDate}, #{ip}, #{content})
+	</insert>
+
+	<update id="updateReadCount">
+		UPDATE kream_board SET readcount = readcount + 1 WHERE num = #{num}
+	</update>
+
+	<select id="getContent" resultType="com.kream.board.BoardDTO">
+		SELECT * FROM kream_board WHERE num = #{num}
+	</select>
+
+	<select id="getUpdate" resultType="com.kream.board.BoardDTO">
+		SELECT * FROM kream_board WHERE num = #{num}
+	</select>
+
+	<select id="getPass" resultType="String">
+		SELECT pass FROM kream_board WHERE num = #{num}
+	</select>
+
+	<update id="update">
+		UPDATE kream_board SET writer = #{writer}, email = #{email}, subject =
+		#{subject}, content = #{content}
+		WHERE num = #{num}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM kream_board WHERE num = #{num}
+	</delete>
+</mapper>
