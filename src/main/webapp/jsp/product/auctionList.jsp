@@ -33,6 +33,9 @@
             });
 		}
 	}
+	function openAuction(productNo) {
+		window.location.href = 'contentAuction?no=' + productNo;
+	}
 </script>
 <meta charset="UTF-8">
 <title>경매목록</title>
@@ -59,7 +62,7 @@
 				</tr>
 				<c:forEach var="auction" items="${auction}">
 					<tr>
-						<td>${auction.auctionNo }</td>
+						<td onclick='openAuction(${auction.auctionNo})'>${auction.auctionNo }</td>
 						<td><fmt:formatDate value="${auction.auctionStartDay}" pattern="yyyy-MM-dd" /></td>
 						<td>${auction.auctionStartTime }</td>
 						<td><fmt:formatDate value="${auction.auctionEndDay}" pattern="yyyy-MM-dd" /></td>

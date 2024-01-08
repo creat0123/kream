@@ -10,11 +10,8 @@
 	position: absolute; /* 위치 조정 */
 	top: 250px; /* 헤더 높이에 맞춤 */
 	left: 150px;
-<<<<<<< HEAD
 	width: 150px; /* 사이드바 너비 설정 */
-=======
 	width: 110px; /* 사이드바 너비 설정 */
->>>>>>> e723f6bb593ff26df1e187fd04c57a041f239ea4
 	background-color: #f1f1f1;
 	padding: 20px;
 	display: flex;
@@ -36,10 +33,7 @@
 }
 
 table {
-<<<<<<< HEAD
-=======
 	margin-top: 130px;
->>>>>>> e723f6bb593ff26df1e187fd04c57a041f239ea4
 	border-collapse: collapse;
 	width: 100%;
 }

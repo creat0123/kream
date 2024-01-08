@@ -1,6 +1,5 @@
 package com.kream.product;
 
-<<<<<<< HEAD
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,7 +121,6 @@ public class ProductService {
 
 	public String editProductProc(ProductDTO dto) {
 		int result = mapper.editProductProc(dto);
-		System.out.println(result);
 		if (result == 1)
 			return "success";
 		return "fail";
@@ -134,11 +132,12 @@ public class ProductService {
 			return "success";
 		return "fail";
 	}
-	
-	
-	
-=======
-public class ProductService {
 
->>>>>>> e723f6bb593ff26df1e187fd04c57a041f239ea4
+	public void contentAuction(Model model, int no) {
+		AuctionDTO contents = mapper.contentAuction(no);
+		model.addAttribute("contents", contents);
+	}
+	
+	
+	
 }

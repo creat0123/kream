@@ -4,15 +4,21 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.kream.product.ProductMapper">
-	<resultMap type="com.kream.product.ProductDTO" id="product">
+	<resultMap type="com.kream.product.ProductDTO" id="productResultMap">
 		<id column="product_no" property="productNo"/>
 		<result column="product_id" property="productId"/>
+		<result column="category1" property="category1"/>
+		<result column="category2" property="category2"/>
+		<result column="brand" property="brand"/>
 		<result column="brand_name" property="brandName"/>
 		<result column="name_kr" property="nameKr"/>
 		<result column="name_en" property="nameEn"/>
+		<result column="content" property="content"/>
 		<result column="first_price" property="firstPrice"/>
 		<result column="release_day" property="releaseDay"/>
 		<result column="regist_day" property="registDay"/>
+		<result column="color" property="color"/>
+		<result column="size" property="size"/>
 		<result column="cate2_name" property="cate2Name"/>
 		<result column="cate1_name" property="cate1Name"/>
 	</resultMap>
@@ -44,6 +50,8 @@
 		<result column="auction_start_price" property="auctionStartPrice"/>
 		<result column="auction_regist" property="auctionRegist"/>
 		<result column="status_name" property="statusName"/>
+		
+		<association property="product" resultMap="productResultMap"/>
 	</resultMap>
 	
 	<resultMap type="com.kream.product.AuctionStatusDTO" id="status">
@@ -63,7 +71,7 @@
 	</insert>
 	
 	<!-- 상품 목록 -->
-	<select id="productList" resultMap="product">
+	<select id="productList" resultMap="productResultMap">
 		SELECT A.*, B.cate1_name, C.cate2_name FROM product A, category1 B, category2 C WHERE A.category1 = B.cate1_no AND A.category2 = C.cate2_no
 	</select>
 	
@@ -138,7 +146,7 @@
 	</delete>
 	
 	<!-- 상품 수정화면 -->
-	<select id="editProduct" resultMap="product">
+	<select id="editProduct" resultMap="productResultMap">
 		SELECT A.*, B.cate1_name, C.cate2_name, D.brand_name 
 			FROM product A, category1 B, category2 C, brand D 
 				WHERE A.category1 = B.cate1_no AND A.category2 = C.cate2_no AND A.brand = D.brand_no AND product_no=#{no}
@@ -168,6 +176,18 @@
 	<delete id="deleteProduct">
 		DELETE FROM product WHERE product_no = #{no}
 	</delete>
+	
+	<!-- 경매 상세보기 -->
+	<select id="contentAuction" resultMap="auction">
+		SELECT * 
+	FROM auction A
+	JOIN auction_status B ON A.auction_status = B.status_no
+	JOIN product P ON A.auction_id = P.product_no
+	JOIN category1 C1 ON P.category1 = C1.cate1_no
+	JOIN category2 C2 ON P.category2 = C2.cate2_no
+	JOIN brand BR ON P.brand = BR.brand_no
+	WHERE A.auction_no = #{no}
+	</select>
 	
 </mapper>
 

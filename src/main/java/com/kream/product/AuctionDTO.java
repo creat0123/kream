@@ -18,6 +18,7 @@ public class AuctionDTO {
 	private Date auctionRegist;
 	private String auctionStatus;
 	private String statusName;
+	private ProductDTO product;
 	
 	
 	public int getAuctionNo() {
@@ -79,6 +80,12 @@ public class AuctionDTO {
 	}
 	public void setStatusName(String statusName) {
 		this.statusName = statusName;
+	}
+	public ProductDTO getProduct() {
+		return product;
+	}
+	public void setProduct(ProductDTO product) {
+		this.product = product;
 	}
 	
 }

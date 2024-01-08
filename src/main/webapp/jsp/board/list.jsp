@@ -10,11 +10,7 @@
 	position: absolute; /* 위치 조정 */
 	top: 250px; /* 헤더 높이에 맞춤 */
 	left: 150px;
-<<<<<<< HEAD
-	width: 150px; /* 사이드바 너비 설정 */
-=======
 	width: 110px; /* 사이드바 너비 설정 */
->>>>>>> e723f6bb593ff26df1e187fd04c57a041f239ea4
 	background-color: #f1f1f1;
 	padding: 20px;
 	display: flex;
@@ -37,11 +33,6 @@
 
 .announcement {
 	text-align: center;
-<<<<<<< HEAD
-	margin-left: 300px;
-=======
-	
->>>>>>> e723f6bb593ff26df1e187fd04c57a041f239ea4
 	margin-bottom: 20px; /* 아래쪽 공간 확보 */
 }
 
@@ -70,11 +61,7 @@
 }
 
 .content {
-<<<<<<< HEAD
-	margin: 0px 105px;
-=======
 	margin: 100px 320px;
->>>>>>> e723f6bb593ff26df1e187fd04c57a041f239ea4
 	text-align: center;
 	width: 1500px;
 	padding: 20px;
@@ -180,11 +167,7 @@ tr:nth-child(even) {
 										</c:if> <a href="content?num=${b.getNum() }&pageNum=${currentPage}">${b.getSubject() }</a>
 										<c:if test="${b.getReadCount() >= 20 }">
 										</c:if></td>
-<<<<<<< HEAD
-									<td><a href="mailto:${b.getEmail() }">${b.getWriter() }</a>
-=======
 									<td>${b.getWriter() }</a>
->>>>>>> e723f6bb593ff26df1e187fd04c57a041f239ea4
 									</td>
 									<td>${sdf.format(b.getRegDate())}</td>
 									<td>${b.getReadCount()}</td>

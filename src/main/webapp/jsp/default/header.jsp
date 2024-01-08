@@ -8,10 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Asta</title>
-<<<<<<< HEAD
-=======
 <script src="dbQuiz.js"></script>
->>>>>>> e723f6bb593ff26df1e187fd04c57a041f239ea4
 <style>
 .head_wrap {
 	background: white;
@@ -153,11 +150,6 @@
 			<div class="head_login_menu">
 				<div class="cont_list cont_list_small">
 					<ul>
-<<<<<<< HEAD
-						<li><a class="small_button" href="/cal2">Login</a></li>
-						<li><a class="small_button" href="/cal2">SignUp</a></li>
-						<li><a class="small_button" href="/cal2">MyPage</a></li>
-=======
 						<li>
 						<c:choose>
 							<c:when test="${sessionScope.id eq 'admin'}">
@@ -175,7 +167,6 @@
 						</c:choose>
 							
 						</li>
->>>>>>> e723f6bb593ff26df1e187fd04c57a041f239ea4
 					</ul>
 				</div>
 			</div>

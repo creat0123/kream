@@ -15,15 +15,9 @@ body {
 
 .sidebar {
 	position: absolute; /* 위치 조정 */
-<<<<<<< HEAD
-	top: 191px; /* 헤더 높이에 맞춤 */
-	left: 150px;
-	width: 150px; /* 사이드바 너비 설정 */
-=======
 	top: 250px; /* 헤더 높이에 맞춤 */
 	left: 150px;
 	width: 110px; /* 사이드바 너비 설정 */
->>>>>>> e723f6bb593ff26df1e187fd04c57a041f239ea4
 	background-color: #f1f1f1;
 	padding: 20px;
 	display: flex;
@@ -45,20 +39,12 @@ body {
 }
 
 .content {
-<<<<<<< HEAD
-	margin: 0px 105px;
-	text-align: center;
-	width: 1500px;
-	padding: 20px;
-	padding-top: 170px; /* 파란색 헤더 아래 공백 */
-=======
 	margin: 100px 320px;
 	text-align: center;
 	width: 1124px;
 	padding: 20px;
 	padding-top: 70px; /* 파란색 헤더 아래 공백 */
 	margin-left: 0;
->>>>>>> e723f6bb593ff26df1e187fd04c57a041f239ea4
 }
 
 .announcement {
@@ -73,11 +59,7 @@ body {
 	text-align: center; /* 가운데 정렬 */
 	border-bottom: 1px solid #ddd;
 	margin-bottom: 30px;
-<<<<<<< HEAD
-	width: 1220px;
-=======
 	width: 843px;
->>>>>>> e723f6bb593ff26df1e187fd04c57a041f239ea4
 	padding: 10px 0;
 }
 
@@ -86,11 +68,7 @@ body {
 	padding: 10px;
 	background-color: #f9f9f9;
 	border: none;
-<<<<<<< HEAD
-	text-align: left;
-=======
 	text-align: center;
->>>>>>> e723f6bb593ff26df1e187fd04c57a041f239ea4
 	width: 100%;
 	border-bottom: 1px solid #ddd; /* 각 제목 아래에 선을 추가합니다. */
 }
@@ -105,11 +83,8 @@ body {
 	margin-bottom : 30px;
 	background-color: #f9f9f9;
 	border-top: 1px solid #ddd;
-<<<<<<< HEAD
-=======
 	text-align: center;
 	width: 100%;
->>>>>>> e723f6bb593ff26df1e187fd04c57a041f239ea4
 }
 
 .announcement-title:last-child {
@@ -146,83 +121,6 @@ body {
 		<button onclick="location.href='faq'">자주 묻는 질문</button>
 		<button onclick="location.href='list'">문의하기</button>
 	</div>
-<<<<<<< HEAD
-	<div class="content">
-		<div class="announcement">
-			<h2>자주 묻는 질문</h2>
-
-			<div class="announcement-title"
-				onclick="toggleContent('announcement1')">자주 묻는 질문 제목</div>
-			<div class="announcement-content" id="announcement1">
-				공지사항 입니다.<br> 공지사항 입니다.<br> 공지사항 입니다.<br> <span
-					class="back-to-list" onclick="toggleContent('announcement1')">목록</span>
-			</div>
-
-			<div class="announcement-title"
-				onclick="toggleContent('announcement2')">자주 묻는 질문 제목</div>
-			<div class="announcement-content" id="announcement2">
-				공지사항 입니다.<br> 공지사항 입니다.<br> 공지사항 입니다.<br> <span
-					class="back-to-list" onclick="toggleContent('announcement2')">목록</span>
-			</div>
-
-			<div class="announcement-title"
-				onclick="toggleContent('announcement3')">자주 묻는 질문 제목</div>
-			<div class="announcement-content" id="announcement3">
-				공지사항 입니다.<br> 공지사항 입니다.<br> 공지사항 입니다.<br> <span
-					class="back-to-list" onclick="toggleContent('announcement3')">목록</span>
-			</div>
-
-			<div class="announcement-title"
-				onclick="toggleContent('announcement4')">자주 묻는 질문 제목</div>
-			<div class="announcement-content" id="announcement4">
-				공지사항 입니다.<br> 공지사항 입니다.<br> 공지사항 입니다.<br> <span
-					class="back-to-list" onclick="toggleContent('announcement4')">목록</span>
-			</div>
-
-			<div class="announcement-title"
-				onclick="toggleContent('announcement5')">자주 묻는 질문 제목</div>
-			<div class="announcement-content" id="announcement5">
-				공지사항 입니다.<br> 공지사항 입니다.<br> 공지사항 입니다.<br> <span
-					class="back-to-list" onclick="toggleContent('announcement5')">목록</span>
-			</div>
-
-			<div class="announcement-title"
-				onclick="toggleContent('announcement6')">자주 묻는 질문 제목</div>
-			<div class="announcement-content" id="announcement6">
-				공지사항 입니다.<br> 공지사항 입니다.<br> 공지사항 입니다.<br> <span
-					class="back-to-list" onclick="toggleContent('announcement6')">목록</span>
-			</div>
-
-			<div class="announcement-title"
-				onclick="toggleContent('announcement7')">자주 묻는 질문 제목</div>
-			<div class="announcement-content" id="announcement7">
-				공지사항 입니다.<br> 공지사항 입니다.<br> 공지사항 입니다.<br> <span
-					class="back-to-list" onclick="toggleContent('announcement7')">목록</span>
-			</div>
-
-			<div class="announcement-title"
-				onclick="toggleContent('announcement8')">자주 묻는 질문 제목</div>
-			<div class="announcement-content" id="announcement8">
-				공지사항 입니다.<br> 공지사항 입니다.<br> 공지사항 입니다.<br> <span
-					class="back-to-list" onclick="toggleContent('announcement8')">목록</span>
-			</div>
-
-			<div class="announcement-title"
-				onclick="toggleContent('announcement9')">자주 묻는 질문 제목</div>
-			<div class="announcement-content" id="announcement9">
-				공지사항 입니다.<br> 공지사항 입니다.<br> 공지사항 입니다.<br> <span
-					class="back-to-list" onclick="toggleContent('announcement9')">목록</span>
-			</div>
-
-			<div class="announcement-title"
-				onclick="toggleContent('announcement10')">자주 묻는 질문 제목</div>
-			<div class="announcement-content" id="announcement10">
-				공지사항 입니다.<br> 공지사항 입니다.<br> 공지사항 입니다.<br> <span
-					class="back-to-list" onclick="toggleContent('announcement10')">목록</span>
-			</div>
-		</div>
-	</div>
-=======
 	<table>
 	<div class="content">
 		<div class="announcement">
@@ -325,6 +223,5 @@ body {
 			</div>
 		</div>
 	</table>
->>>>>>> e723f6bb593ff26df1e187fd04c57a041f239ea4
 </body>
 </html>

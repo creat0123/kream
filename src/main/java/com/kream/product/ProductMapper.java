@@ -40,11 +40,13 @@ public interface ProductMapper {
 
 	int deleteAuction(int no);
 
-	ProductDTO editProduct(int no);//
+	ProductDTO editProduct(int no);
 
-	int editProductProc(ProductDTO dto);//
+	int editProductProc(ProductDTO dto);
 
-	int deleteProduct(int no);//
+	int deleteProduct(int no);
+
+	AuctionDTO contentAuction(int no);
 
 	
 }

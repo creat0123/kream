@@ -202,4 +202,10 @@ public class ProductController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
+	@RequestMapping("contentAuction")
+	private String contentAuction(Model model, int no) {
+		service.contentAuction(model, no);
+		return "product/contentAuction";
+	}
+	
 }
