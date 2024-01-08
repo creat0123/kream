@@ -135,6 +135,8 @@ public class ProductService {
 		return "fail";
 	}
 	
-	
+	public List<String> getPlannedDates(){
+		return mapper.getPlannedDates();
+	}
 
 }
