@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kream.product.ProductMapper">
+	<resultMap type="com.kream.product.ProductDTO" id="product">
+		<id column="product_no" property="productNo"/>
+		<result column="product_id" property="productId"/>
+		<result column="brand_name" property="brandName"/>
+		<result column="name_kr" property="nameKr"/>
+		<result column="name_en" property="nameEn"/>
+		<result column="first_price" property="firstPrice"/>
+		<result column="release_day" property="releaseDay"/>
+		<result column="regist_day" property="registDay"/>
+		<result column="cate2_name" property="cate2Name"/>
+		<result column="cate1_name" property="cate1Name"/>
+	</resultMap>
+	
+	<resultMap type="com.kream.product.Category1DTO" id="cate1">
+		<id column="cate1_no" property="cate1No"/>
+		<result column="cate1_name" property="cate1Name"/>
+	</resultMap>
+
+	<resultMap type="com.kream.product.Category2DTO" id="cate2">
+		<id column="cate2_no" property="cate2No"/>
+		<result column="cate2_cate1" property="cate2Cate1"/>
+		<result column="cate2_name" property="cate2Name"/>
+		<result column="cate1_name" property="cate1Name"/>
+	</resultMap>
+
+	<resultMap type="com.kream.product.BrandDTO" id="brand">
+		<id column="brand_no" property="brandNo"/>
+		<result column="brand_name" property="brandName"/>
+	</resultMap>
+
+	<resultMap type="com.kream.product.AuctionDTO" id="auction">
+		<id column="auction_no" property="auctionNo"/>
+		<result column="auction_id" property="auctionId"/>
+		<result column="auction_start_day" property="auctionStartDay"/>
+		<result column="auction_start_time" property="auctionStartTime"/>
+		<result column="auction_end_day" property="auctionEndDay"/>
+		<result column="auction_end_time" property="auctionEndTime"/>
+		<result column="auction_start_price" property="auctionStartPrice"/>
+		<result column="auction_regist" property="auctionRegist"/>
+		<result column="status_name" property="statusName"/>
+	</resultMap>
+	
+	<resultMap type="com.kream.product.AuctionStatusDTO" id="status">
+		<id column="status_no" property="statusNo"/>
+		<result column="status_name" property="statusName"/>
+	</resultMap>
+	
+	<!-- 카테고리2 리스트(1차값 넘김) -->
+	<select id="subcateList" resultMap="cate2">
+		select * from category2 where cate2_cate1 = #{num} order by cate2_no
+	</select>
+	
+	<!-- 상품 추가 -->
+	<insert id="productInsert" parameterType="com.kream.product.ProductDTO">
+		insert into product 
+			values(default, #{productId}, #{category1}, #{category2}, #{brand}, #{nameKr}, #{nameEn}, #{content}, #{firstPrice}, #{releaseDay}, now(), #{color}, #{size})
+	</insert>
+	
+	<!-- 상품 목록 -->
+	<select id="productList" resultMap="product">
+		SELECT A.*, B.cate1_name, C.cate2_name FROM product A, category1 B, category2 C WHERE A.category1 = B.cate1_no AND A.category2 = C.cate2_no
+	</select>
+	
+	<!-- 카테고리1 추가 -->
+	<insert id="cate1Insert" parameterType="com.kream.product.Category1DTO">
+		insert into category1 values(default, #{cate1Name})
+	</insert>
+	
+	<!-- 카테고리1 목록 -->
+	<select id="cate1List" resultMap="cate1">
+		select * from category1
+	</select>
+	
+	<!-- 카테고리2 추가 -->
+	<insert id="cate2Insert" parameterType="com.kream.product.Category2DTO">
+		insert into category2 values(default, #{cate2Cate1}, #{cate2Name})
+	</insert>
+	
+	<!-- 카테고리2 목록 -->
+	<select id="cate2List" resultMap="cate2">
+		SELECT * FROM category1 A, category2 B WHERE A.cate1_no = B.cate2_cate1
+	</select>
+	
+	<!-- 브랜드 추가 -->
+	<insert id="brandInsert" parameterType="com.kream.product.BrandDTO">
+		insert into brand values(default, #{brandName})
+	</insert>
+	
+	<!-- 브랜드 목록 -->
+	<select id="brandList" resultMap="brand">
+		SELECT * FROM brand
+	</select>
+	
+	<!-- 경매 추가 -->
+	<insert id="addAuction" parameterType="com.kream.product.AuctionDTO">
+		insert into auction values(default, #{auctionId}, #{auctionStartDay}, #{auctionStartTime}, #{auctionEndDay}, #{auctionEndTime}, #{auctionStartPrice}, now(), #{auctionStatus})
+	</insert>
+	
+	<!-- 경매현황 목록 -->
+	<select id="auctionStatusList" resultMap="status">
+		SELECT * FROM auction_status
+	</select>
+	
+	<!-- 경매 목록 -->
+	<select id="auctionList" resultMap="auction">
+		SELECT * FROM auction A, auction_status B WHERE A.auction_status = B.status_no ORDER BY auction_no;
+	</select>
+	
+	<!-- 경매 수정화면 -->
+	<select id="editAuction" resultMap="auction">
+		SELECT * FROM auction A, auction_status B WHERE A.auction_status = B.status_no AND auction_no=#{no}
+	</select>
+	
+	<!-- 경매 수정 -->
+	<update id="editAuctionProc">
+	UPDATE auction
+	SET
+		auction_id = #{auctionId},
+		auction_start_day = #{auctionStartDay},
+		auction_start_time = #{auctionStartTime},
+		auction_end_day = #{auctionEndDay},
+		auction_end_time = #{auctionEndTime},
+		auction_start_price = #{auctionStartPrice},
+		auction_regist = #{auctionRegist},
+		auction_status = #{auctionStatus}
+	WHERE auction_no = #{auctionNo}
+	</update>
+	
+	<!-- 경매 삭제 -->
+	<delete id="deleteAuction">
+		DELETE FROM auction WHERE auction_no = #{no}
+	</delete>
+	
+	<!-- 상품 수정화면 -->
+	<select id="editProduct" resultMap="product">
+		SELECT A.*, B.cate1_name, C.cate2_name, D.brand_name 
+			FROM product A, category1 B, category2 C, brand D 
+				WHERE A.category1 = B.cate1_no AND A.category2 = C.cate2_no AND A.brand = D.brand_no AND product_no=#{no}
+	</select>
+	
+	<!-- 상품 수정 -->
+	<update id="editProductProc">
+	UPDATE product
+	SET
+		product_no = #{productNo},
+		product_id = #{productId},
+		category1 = #{category1},
+		category2 = #{category2},
+		brand = #{brand},
+		name_kr = #{nameKr},
+		name_en = #{nameEn},
+		content = #{content},
+		first_price = #{firstPrice},
+		release_day = #{releaseDay},
+		regist_day = #{registDay},
+		color = #{color},
+		size = #{size}
+	WHERE product_no = #{productNo}
+	</update>
+	
+	<!-- 상품 삭제 -->
+	<delete id="deleteProduct">
+		DELETE FROM product WHERE product_no = #{no}
+	</delete>
+	
+</mapper>
+
+

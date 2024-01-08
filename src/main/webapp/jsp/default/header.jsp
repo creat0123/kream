@@ -141,7 +141,7 @@
 					<ul>
 						<li><a class="pc" href="../notice">고객센터</a></li>
 						<li><a class="pc" href="../cal">경매일정</a></li>
-						<li><a class="pc" href="../cal">상품</a></li>
+						<li><a class="pc" href="../product/insert">상품</a></li>
 					</ul>
 				</div>
 			</div>
