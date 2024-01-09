@@ -12,7 +12,7 @@
 <style>
 .head_wrap {
 	background: white;
-	position: fixed;
+	position: relative;
 	top: 0;
 	left: 0;
 	width: 70%;
