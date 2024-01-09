@@ -189,6 +189,12 @@
 	WHERE A.auction_no = #{no}
 	</select>
 	
+	<!-- 상품 날짜 받아오기 -->
+	<select id="getPlannedDates" resultType="java.lang.String">
+		SELECT DISTINCT auction_start_day
+		FROM auction
+		WHERE auction_start_day IS NOT NULL;
+	</select>
 </mapper>
 
 

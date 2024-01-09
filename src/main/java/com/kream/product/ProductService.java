@@ -121,6 +121,7 @@ public class ProductService {
 
 	public String editProductProc(ProductDTO dto) {
 		int result = mapper.editProductProc(dto);
+		System.out.println(result);
 		if (result == 1)
 			return "success";
 		return "fail";
@@ -138,6 +139,8 @@ public class ProductService {
 		model.addAttribute("contents", contents);
 	}
 	
-	
-	
+	public List<String> getPlannedDates(){
+		return mapper.getPlannedDates();
+	}
+
 }

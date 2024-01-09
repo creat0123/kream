@@ -208,4 +208,13 @@ public class ProductController {
 		return "product/contentAuction";
 	}
 	
+	
+	// 달력
+	@RequestMapping("cal")
+	public String showCalenar(Model model) {
+		List<String> palnnedDates = service.getPlannedDates();
+		model.addAttribute("plannedDates",palnnedDates);
+		
+		return "product/cal";
+	} 
 }

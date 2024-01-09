@@ -187,6 +187,6 @@
 	<div>
 		<c:import url="/footer" />
 	</div>
-	<script src="js/cal.js"></script>
+	<script src="../js/cal.js"></script>
 </body>
 </html>

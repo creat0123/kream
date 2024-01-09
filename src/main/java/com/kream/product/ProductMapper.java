@@ -48,5 +48,6 @@ public interface ProductMapper {
 
 	AuctionDTO contentAuction(int no);
 
+	List<String> getPlannedDates();
 	
 }
