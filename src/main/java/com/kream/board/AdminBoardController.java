@@ -15,19 +15,17 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class AdminBoardController {
 
-	@Autowired
-	AdminBoardService service;
-	@Autowired
-	HttpSession session;
-
+	@Autowired AdminBoardService service;
+	@Autowired HttpSession session;
+	
 	@RequestMapping("notice")
-	public String notice(String search, Model model, @RequestParam(value = "currentPage", required = false) String cp) {
-		String select = "select";
-		if (search == null || search.trim().isEmpty()) {
-			search = "";
-			select = "all";
-		}
-		service.notice(cp, model, search, select);
+	public String notice(String search,Model model,
+			@RequestParam(value="currentPage", required = false)String cp) {
+			String select = "select";
+			if(search == null || search.trim().isEmpty()) {
+				search = ""; select = "all"; 
+			}
+			service.notice(cp, model, search, select);
 		return "board/notice";
 	}
 

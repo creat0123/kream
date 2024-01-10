@@ -39,18 +39,18 @@ body {
 }
 
 .content {
-	margin: 100px 320px;
+	margin: 100px 305px;
 	text-align: center;
-	width: 1124px;
+	width: 920px;
 	padding: 20px;
 	padding-top: 70px; /* 파란색 헤더 아래 공백 */
-	margin-left: 0;
 }
 
 .announcement {
 	text-align: center;
-	margin-left: 300px;
+	margin-left: 200px;
 	margin-bottom: 20px; /* 아래쪽 공간 확보 */
+	width: 920px;
 }
 
 .announcement h2 {
@@ -59,7 +59,7 @@ body {
 	text-align: center; /* 가운데 정렬 */
 	border-bottom: 1px solid #ddd;
 	margin-bottom: 30px;
-	width: 843px;
+	width: 940px;
 	padding: 10px 0;
 }
 
@@ -225,3 +225,5 @@ body {
 	</table>
 </body>
 </html>
+
+<%@ include file="../default/footer.jsp"%>

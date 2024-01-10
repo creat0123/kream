@@ -110,3 +110,5 @@
 		</form>
 	</article>
 </table>
+
+<%@ include file="../default/footer.jsp"%>

@@ -135,15 +135,4 @@
 	</form>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
+<%@ include file="../default/footer.jsp"%>

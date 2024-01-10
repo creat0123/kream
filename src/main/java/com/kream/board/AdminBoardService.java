@@ -77,7 +77,7 @@ public class AdminBoardService {
 				return "redirect:adminBoardWrite";
 			
 			// 파일의 저장 경로
-			String fileSaveDirectory = "C:\\javas\\projectall\\src\\main\\resources\\static\\img\\" +sessionId;
+			String fileSaveDirectory = "C:\\DailyJava\\boot_workspace\\kream\\src\\main\\resources\\static\\img\\" +sessionId;
 			File f = new File(fileSaveDirectory);
 			if(f.exists() == false) {
 				f.mkdirs();
@@ -106,37 +106,37 @@ public class AdminBoardService {
 	}
 
 	public AdminBoardDTO adminBoardContent(String no) {
-		int n = 1;
-		try{
-			n = Integer.parseInt(no);
-		}catch(Exception e){
-			return null;
-		}
-		
-		AdminBoardDTO board = mapper.adminBoardContent(n);
-		   String content = board.getContent().replaceAll("\r\n","<br>");
-		   session.setAttribute("viewGetContent", content);
-		if(board != null) {
-			System.out.println("image name = " + board.getImage());
-			
-			if(board.getImage() != null) {
-				String[] names = board.getImage().split("\\\\");
-				
-				for(String name : names)
-					System.out.println("BoardService-boardContent name : "+ name);
-				/* 	/opt/tomcat/tomcat-10/webapps/upload/user1/20230925140126-pom.xml*/
-				//  /D:\kdk\image\admin\20231023164230-냥이.jpeg
-				/* 20230925140126-01-pom-v01.xml */
-				//  C:\javas\projectall\src\main\resources\static\img\admin\20231024095431-냥이.jpeg
-				String[] fileNames = names[9].split("-", 2);
-				for(String fileName : fileNames)
-					System.out.println("BoardService-boardContent fileName : "+ fileName);
-				
-				board.setImage(names[9]);
-			}
-		}
-		return board;
-		
+	    int n = 1;
+	    try {
+	        n = Integer.parseInt(no);
+	    } catch (Exception e) {
+	        return null;
+	    }
+
+	    AdminBoardDTO board = mapper.adminBoardContent(n);
+	    String content = board.getContent().replaceAll("\r\n", "<br>");
+	    session.setAttribute("viewGetContent", content);
+
+	    if (board != null && board.getImage() != null) {
+	        String[] names = board.getImage().split("\\\\");
+
+	        for (String name : names) {
+	            System.out.println("BoardService-boardContent name : " + name);
+	        }
+
+	        // 이미지 경로가 포함된 배열의 길이가 1 이상인 경우에만 처리
+	        if (names.length >= 2) {
+	            String[] fileNames = names[names.length - 1].split("-", 2);
+
+	            for (String fileName : fileNames) {
+	                System.out.println("BoardService-boardContent fileName : " + fileName);
+	            }
+
+	            board.setImage(names[names.length - 1]);
+	        } 
+	    }
+
+	    return board;
 	}
 
 	public String adminBoardDeleteProc(String no) {
@@ -203,7 +203,7 @@ public class AdminBoardService {
 				return "redirect:adminBoardModify";
 			
 			// 파일의 저장 경로
-			String fileSaveDirectory = "C:\\javas\\projectall\\src\\main\\resources\\static\\img\\" +sessionId;
+			String fileSaveDirectory = "C:\\DailyJava\\boot_workspace\\kream\\src\\main\\resources\\static\\img\\" +sessionId;
 			File f = new File(fileSaveDirectory);
 			if(f.exists() == false) {
 				f.mkdirs();
@@ -253,11 +253,11 @@ public class AdminBoardService {
 				//  /D:\kdk\image\admin\20231023164230-냥이.jpeg
 				/* 20230925140126-01-pom-v01.xml */
 				//  C:\javas\projectall\src\main\resources\static\img\admin\20231024095431-냥이.jpeg
-				String[] fileNames = names[9].split("-", 2);
+				String[] fileNames = names[10].split("-", 2);
 				for(String fileName : fileNames)
 					System.out.println("BoardService-boardContent fileName : "+ fileName);
 				
-				board.setImage(names[9]);
+				board.setImage(names[10]);
 			}
 		}
 		return board;

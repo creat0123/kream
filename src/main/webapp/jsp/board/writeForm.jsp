@@ -123,3 +123,5 @@
 	</form>
 </article>
 </body>
+
+<%@ include file="../default/footer.jsp"%>

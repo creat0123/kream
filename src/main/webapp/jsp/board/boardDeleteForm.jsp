@@ -6,6 +6,8 @@
 <link rel="icon" href="/img/A.png">
 
 <style>
+
+
 .sidebar {
 	position: absolute; /* 위치 조정 */
 	top: 250px; /* 헤더 높이에 맞춤 */
@@ -93,3 +95,5 @@
 		</table>
 	</form>
 </article>
+
+<%@ include file="../default/footer.jsp"%>

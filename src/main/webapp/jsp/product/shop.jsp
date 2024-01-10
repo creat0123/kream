@@ -54,7 +54,7 @@
     <header>
         <h1>경매 상품 페이지</h1>
     </header>
-
+ 
     <div class="product-container">
         <div class="product">
             <img src="/img/JJANG3.png" alt="Product 1">
