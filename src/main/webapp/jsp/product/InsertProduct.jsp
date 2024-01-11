@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="../default/header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +14,11 @@
     	border-spacing: 5px; /* 셀 간격 설정 */
     	border-radius: 10px; /* 테두리 둥글게 만들기 */
     	box-shadow: 3px 3px 5px #888888; /* 그림자 설정 */
+		position: relative;
+	}
+	.buttons{
+		position: relative;
+		margin-top: 8%;
 	}
 </style>
 <script>
@@ -48,22 +54,23 @@ $(document).ready(function() {
 <meta charset="UTF-8">
 <title>상품추가</title>
 </head>
-<body>
-	<button type="button" onclick="window.open(
-		'InsertCategory1', 'InsertCategory1', 'width=300, height=200, top=200, left=300');"
-			style="position: relative;">카테고리1 등록</button><br>
-	<button type="button" onclick="window.open(
-		'InsertCategory2', 'InsertCategory2', 'width=350, height=300, top=200, left=300');"
-			style="position: relative;">카테고리2 등록</button><br>
-	<button type="button" onclick="window.open(
-		'InsertBrand', 'InsertBrand', 'width=350, height=300, top=200, left=300');"
-			style="position: relative;">브랜드 등록</button><br>
-	<a href="InsertCategory1">카테고리1</a>
-	<a href="InsertCategory2">카테고리2</a>
-	<a href="InsertBrand">브랜드 등록</a>
+<body align="center">
+	<div class="buttons">
+		<button type="button" onclick="window.open(
+			'InsertCategory1', 'InsertCategory1', 'width=300, height=200, top=200, left=300');"
+				style="position: relative;">카테고리1 등록</button>
+		<button type="button" onclick="window.open(
+			'InsertCategory2', 'InsertCategory2', 'width=350, height=300, top=200, left=300');"
+				style="position: relative;">카테고리2 등록</button>
+		<button type="button" onclick="window.open(
+			'InsertBrand', 'InsertBrand', 'width=350, height=300, top=200, left=300');"
+				style="position: relative;">브랜드 등록</button><br>
+		<a href="list"><button>상품목록</button></a>
+		<a href="auctionList"><button>경매목록</button></a>
+	</div>
 	
 	<div align="center">
-		<table>
+		<table class="table">
 			<form action="insertProc" method="post">
 				<tr>
 					<th colspan="2">
@@ -144,3 +151,4 @@ $(document).ready(function() {
 	</div>
 </body>
 </html>
+<%@ include file="../default/footer.jsp"%>

@@ -1,5 +1,7 @@
 package com.kream.product;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,7 +123,6 @@ public class ProductService {
 
 	public String editProductProc(ProductDTO dto) {
 		int result = mapper.editProductProc(dto);
-		System.out.println(result);
 		if (result == 1)
 			return "success";
 		return "fail";
@@ -136,11 +137,63 @@ public class ProductService {
 
 	public void contentAuction(Model model, int no) {
 		AuctionDTO contents = mapper.contentAuction(no);
+		int max = mapper.maxBidprice(no);
+		System.out.println("max : "+max);
 		model.addAttribute("contents", contents);
+		model.addAttribute("max", max);
+		
+
 	}
+
+	// 경매 입찰
+	public String auctionBid(AuctionProgressDTO dto, int no, AuctionDTO dto1) {
+		if(dto.getBidMemberId() == null || dto.getBidMemberId().trim().isEmpty())
+			return "login";
+		
+		// 현재 시간
+//	    Date currentDateTime = new Date();
+//
+//	    // 경매 시작일과 시작시간을 Date로 변환
+//	    Date auctionStartDateTime = dto1.getAuctionStartDay();//convertStringToDate(dto1.getAuctionStartDay(), dto1.getAuctionStartTime());
+//
+//	    // 경매 종료일과 종료시간을 Date로 변환
+//	    Date auctionEndDateTime = dto1.getAuctionEndDay();//convertStringToDate(dto1.getAuctionEndDay(), dto1.getAuctionEndTime());
+//
+//	    if (currentDateTime.before(auctionStartDateTime))
+//	        return "auction_not_started";
+//
+//	    if (currentDateTime.after(auctionEndDateTime))
+//	        return "auction_ended";
+
+		int max = mapper.maxBidprice(no);
+		if(max >= dto.getAuctionBidprice())
+			return "over";
+		
+		int result = mapper.auctionBid(dto);
+		if (result == 1)
+			return "success";
+		return "fail";
+	}
+	
+	// 문자열을 Date로 변환하는 메소드
+//    public Date convertStringToDate(Date date, String timeString) {
+//        String combinedDateTimeString = date + " " + timeString;
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//
+//        try {
+//            return dateFormat.parse(combinedDateTimeString);
+//        } catch (Exception e) {
+//            // ParseException 발생 시 처리
+//            e.printStackTrace();
+//            return null; // 또는 예외 처리에 따른 적절한 반환값 설정
+//        }
+//    }
+	
+	/* -------------- */
 	
 	public List<String> getPlannedDates(){
 		return mapper.getPlannedDates();
 	}
 
+	
 }

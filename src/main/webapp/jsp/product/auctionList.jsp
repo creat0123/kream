@@ -2,9 +2,16 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ include file="../default/header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+	.table{
+		position: relative;
+		margin-top: 10%;
+	}
+</style>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script type="text/javascript">
 	function openEditAuction(auctionNo) {
@@ -40,22 +47,22 @@
 <meta charset="UTF-8">
 <title>경매목록</title>
 </head>
-<body>
-	<h3>경매목록</h3>
+<body class="table">
+	<h3 align="center">경매목록</h3>
 	<c:choose>
 		<c:when test="${empty auction}">
 			<h3>등록된 데이터가 없습니다</h3>
 		</c:when>
 		<c:otherwise>
-			<table border="1">
+			<table border="1" align="center">
 				<tr>
 					<th>경매번호</th>
+					<th>상품정보</th>
 					<th>경매 시작일</th>
-					<th>경매 시작시간</th>
 					<th>경매 종료일</th>
-					<th>경매 종료시간</th>
+					<th>경매 시간</th>
 					<th>경매 시작가</th>
-					<th>경매 등록시간</th>
+					<!-- <th>경매 등록시간</th> -->
 					<th>경매 현황</th>
 					<th>수정</th>
 					<th>삭제</th>
@@ -63,12 +70,12 @@
 				<c:forEach var="auction" items="${auction}">
 					<tr>
 						<td onclick='openAuction(${auction.auctionNo})'>${auction.auctionNo }</td>
+						<td onclick='openAuction(${auction.auctionNo})'>${auction.product.nameKr} | ${auction.product.color} | ${auction.product.size}</td>
 						<td><fmt:formatDate value="${auction.auctionStartDay}" pattern="yyyy-MM-dd" /></td>
-						<td>${auction.auctionStartTime }</td>
 						<td><fmt:formatDate value="${auction.auctionEndDay}" pattern="yyyy-MM-dd" /></td>
-						<td>${auction.auctionEndTime }</td>
-						<td>\<fmt:formatNumber value="${auction.auctionStartPrice}" pattern="#,###" /></td>
-						<td><fmt:formatDate value="${auction.auctionRegist}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+						<td>${auction.auctionStartTime } ~ ${auction.auctionEndTime }</td>
+						<td>₩<fmt:formatNumber value="${auction.auctionStartPrice}" pattern="#,###" /></td>
+						<%-- <td><fmt:formatDate value="${auction.auctionRegist}" pattern="yyyy-MM-dd HH:mm:ss" /></td> --%>
 						<td>${auction.statusName }</td>
 						<td><button onclick="openEditAuction(${auction.auctionNo})" style="position: relative;">edit</button></td>
 						<td><button onclick="deleteCheck(${auction.auctionNo})">delete</button></td>
@@ -79,3 +86,6 @@
 	</c:choose>
 </body>
 </html>
+<div>
+	<c:import url="/footer"/>
+</div>

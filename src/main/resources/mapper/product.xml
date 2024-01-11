@@ -58,6 +58,14 @@
 		<id column="status_no" property="statusNo"/>
 		<result column="status_name" property="statusName"/>
 	</resultMap>
+
+	<resultMap type="com.kream.product.AuctionProgressDTO" id="progress">
+		<id column="bid_no" property="bidNo"/>
+		<result column="bid_member_id" property="bidMemberId"/>
+		<result column="bid_auction_no" property="bidAuctionNo"/>
+		<result column="auction_bidprice" property="auctionBidprice"/>
+		<result column="auction_bidtime" property="auctionBidtime"/>
+	</resultMap>
 	
 	<!-- 카테고리2 리스트(1차값 넘김) -->
 	<select id="subcateList" resultMap="cate2">
@@ -72,7 +80,10 @@
 	
 	<!-- 상품 목록 -->
 	<select id="productList" resultMap="productResultMap">
-		SELECT A.*, B.cate1_name, C.cate2_name FROM product A, category1 B, category2 C WHERE A.category1 = B.cate1_no AND A.category2 = C.cate2_no
+		SELECT * FROM product P
+		JOIN category1 C1 ON P.category1 = C1.cate1_no
+		JOIN category2 C2 ON P.category2 = C2.cate2_no
+		JOIN brand BR ON P.brand = C2.cate2_no
 	</select>
 	
 	<!-- 카테고리1 추가 -->
@@ -117,7 +128,13 @@
 	
 	<!-- 경매 목록 -->
 	<select id="auctionList" resultMap="auction">
-		SELECT * FROM auction A, auction_status B WHERE A.auction_status = B.status_no ORDER BY auction_no;
+		SELECT * FROM auction A
+		JOIN auction_status B ON A.auction_status = B.status_no
+		JOIN product P ON A.auction_id = P.product_no
+		JOIN category1 C1 ON P.category1 = C1.cate1_no
+		JOIN category2 C2 ON P.category2 = C2.cate2_no
+		JOIN brand BR ON P.brand = BR.brand_no
+		ORDER BY auction_no
 	</select>
 	
 	<!-- 경매 수정화면 -->
@@ -179,7 +196,7 @@
 	
 	<!-- 경매 상세보기 -->
 	<select id="contentAuction" resultMap="auction">
-		SELECT * 
+	SELECT * 
 	FROM auction A
 	JOIN auction_status B ON A.auction_status = B.status_no
 	JOIN product P ON A.auction_id = P.product_no
@@ -188,6 +205,19 @@
 	JOIN brand BR ON P.brand = BR.brand_no
 	WHERE A.auction_no = #{no}
 	</select>
+	
+	<!-- 경매 입찰 추가 -->
+	<insert id="auctionBid" parameterType="com.kream.product.AuctionProgressDTO">
+		insert into auction_progress values(default, #{bidMemberId}, #{bidAuctionNo}, #{auctionBidprice}, now())
+	</insert>
+	
+	<!-- 최신 입찰가  -->
+	<select id="maxBidprice">
+		<!-- SELECT COALESCE(MAX(auction_bidprice), 0) FROM auction_progress WHERE bid_auction_no = #{no} ORDER BY auction_bidprice DESC -->
+		SELECT COALESCE(MAX(auction_bidprice), 0) FROM auction_progress WHERE bid_auction_no = #{no}
+	</select>
+	
+	<!--  -->
 	
 	<!-- 상품 날짜 받아오기 -->
 	<select id="getPlannedDates" resultType="java.lang.String">

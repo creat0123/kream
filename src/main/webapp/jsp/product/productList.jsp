@@ -2,9 +2,16 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ include file="../default/header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+	.table{
+		position: relative;
+		margin-top: 10%;
+	}
+</style>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script type="text/javascript">
 	function openEditAuction(productNo) {
@@ -37,17 +44,21 @@
 		}
 	}
 </script>
+
 <meta charset="UTF-8">
 <title>상품목록</title>
 </head>
-<body>
-	<h3>상품목록</h3>
+<body class="table">
+	<h3 align="center">상품목록</h3>
+	<div align="center">
+		<a href="auctionList"><button>경매목록</button></a>
+	</div>
 	<c:choose>
 		<c:when test="${empty product}">
 			<h3>등록된 데이터가 없습니다</h3>
 		</c:when>
 		<c:otherwise>
-			<table border="1">
+			<table border="1" align="center">
 				<tr>
 					<th>상품번호</th>
 					<th>모델번호</th>
@@ -72,7 +83,7 @@
 						<td>${product.productId }</td>
 						<td>${product.cate1Name }</td>
 						<td>${product.cate2Name }</td>
-						<td>${product.brand }</td>
+						<td>${product.brandName }</td>
 						<td>${product.nameKr }</td>
 						<td>${product.nameEn }</td>
 						<td>${product.content }</td>
@@ -91,4 +102,7 @@
 		</c:otherwise>
 	</c:choose>
 </body>
+<div>
+	<c:import url="/footer"/>
+</div>
 </html>

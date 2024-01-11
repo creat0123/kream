@@ -208,6 +208,17 @@ public class ProductController {
 		return "product/contentAuction";
 	}
 	
+	// 경매 입찰
+	@RequestMapping("auctionBid")
+	private ResponseEntity<Map<String, String>> auctionBid(AuctionProgressDTO dto, AuctionDTO dto1,
+			Model model, RedirectAttributes ra, @RequestParam(name = "no", required = false) Integer no) {
+		Map<String, String> response = new HashMap<>();
+		String msg = service.auctionBid(dto, no != null ? no : 0, dto1); // 값이 있을 때는 그대로 사용하고, 값이 없을 때는 기본값 0으로 설정
+		//String msg = service.auctionBid(dto, no);
+		response.put("msg", msg);
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	
 	
 	// 달력
 	@RequestMapping("cal")
