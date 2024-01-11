@@ -135,20 +135,4 @@
 	<input type="hidden" name="no" value="${board.no }" />
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<%@ include file="../default/footer.jsp"%>

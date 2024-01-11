@@ -10,7 +10,6 @@
 	position: absolute; /* 위치 조정 */
 	top: 250px; /* 헤더 높이에 맞춤 */
 	left: 150px;
-	width: 150px; /* 사이드바 너비 설정 */
 	width: 110px; /* 사이드바 너비 설정 */
 	background-color: #f1f1f1;
 	padding: 20px;
@@ -33,13 +32,15 @@
 }
 
 table {
-	margin-top: 130px;
+	margin-top: 50px;
 	border-collapse: collapse;
-	width: 100%;
+	width: 930px;
+	margin-left: 0px;
 }
 
 table, th, td {
 	border: 1px solid #ccc;
+	margin-left: 0px;
 }
 
 th, td {
@@ -84,12 +85,13 @@ th {
 	text-align: center; /* 가운데 정렬 */
 	border-bottom: 1px solid #ddd;
 	margin-bottom: 30px;
-	width: 1220px;
+	margin-left: 40px;
+	width: 930px;
 	padding: 10px 0;
 }
 
 .announcement-title {
-
+	cursor: pointer;
 	padding: 10px;
 	background-color: #f9f9f9;
 	border: none;
@@ -103,11 +105,13 @@ th {
 }
 
 .content {
-	margin: 0px 105px;
+	margin: 100px 150px;
 	text-align: center;
-	width: 1500px;
+	width: 930px;
 	padding: 20px;
+	padding-top: 70px; /* 파란색 헤더 아래 공백 */
 }
+
 </style>
 
 <body>
@@ -171,3 +175,5 @@ th {
 		</div>
 	</div>
 </body>
+
+<%@ include file="../default/footer.jsp"%>

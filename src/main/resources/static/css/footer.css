@@ -49,12 +49,12 @@ body {
 }
 
 .foot_wrap {
-    background-color: #DCDCDC;
+    background-color: #7D98F2;
     color: #808080;
    	height: 287px;
     font-size: 0.9em;
-    width: 70%;
-    margin-left: 14% 
+    width: 100%;
+    margin-left: 0% 
 }
 
 
@@ -73,9 +73,9 @@ body {
 }
 
 .cont_list {
-    padding-left: 10px; /* 좌측 패딩 값 추가 */
-    padding-right: 10px; /* 우측 패딩 값 추가 */
-    padding-bottom: 20px;
+    padding-left: 0; /* 좌측 패딩 값 추가 */
+    padding-right: 0; /* 우측 패딩 값 추가 */
+    padding-bottom: 0;
     display: flex;
     align-items: center;
 }

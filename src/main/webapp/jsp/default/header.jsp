@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <link rel="icon" href="/img/A.png">
 <head>
 <meta charset="UTF-8">
@@ -10,12 +10,20 @@
 <title>Asta</title>
 <script src="dbQuiz.js"></script>
 <style>
+
+html {
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+}
+
+
 .head_wrap {
-	background: white;
-	position: fixed;
+	background: #7D98F2;
+	position: relative;
 	top: 0;
 	left: 0;
-	width: 70%;
+	width: 100%;
 	height: 85px;
 	z-index: 9999;
 	box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.1);
@@ -27,7 +35,8 @@
 	transition: all 0.2s ease;
 	-webkit-transition: all 0.2s ease;
 	z-index: 9999;
-	margin-left: 14%;
+	padding: 0;
+	
 }
 
 .head a {
@@ -45,12 +54,12 @@
 	order: 3;
 	display: flex;
 	align-items: center;
-	gap: 10px; /* 각 버튼 사이의 간격 조절 */
+	gap: 30px; /* 각 버튼 사이의 간격 조절 */
 }
 
 .head_wrap .head .head_logo img {
-	max-width: 186px;
-	height: 140px;
+	max-width: 220px;
+	height: 200px;
 }
 
 .head_wrap .head .head_menu_wrap {
@@ -119,6 +128,15 @@
 .head_wrap .head .head_menu>ul>li a:hover::after {
 	width: 100%;
 }
+
+ @media (max-width: 600px) {
+        .head_wrap {
+            width: 100%;
+        }
+    }
+    
+    
+
 </style>
 
 </head>
@@ -141,7 +159,7 @@
 					<ul>
 						<li><a class="pc" href="../notice">고객센터</a></li>
 						<li><a class="pc" href="../product/cal">경매일정</a></li>
-						<li><a class="pc" href="../product/insert">상품</a></li>
+						<li><a class="pc" href="../product/shop">상품</a></li>
 					</ul>
 				</div>
 			</div>

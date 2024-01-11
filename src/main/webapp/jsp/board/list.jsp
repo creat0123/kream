@@ -31,9 +31,19 @@
 	background-color: #ddd;
 }
 
+.content {
+	margin: 100px 305px;
+	text-align: center;
+	width: 920px;
+	padding: 20px;
+	padding-top: 70px; /* 파란색 헤더 아래 공백 */
+}
+
 .announcement {
 	text-align: center;
+	margin-left: 200px;
 	margin-bottom: 20px; /* 아래쪽 공간 확보 */
+	width: 930px;
 }
 
 .announcement h2 {
@@ -42,7 +52,7 @@
 	text-align: center; /* 가운데 정렬 */
 	border-bottom: 1px solid #ddd;
 	margin-bottom: 30px;
-	width: 1220px;
+	width: 930px;
 	padding: 10px 0;
 }
 
@@ -51,7 +61,7 @@
 	padding: 10px;
 	background-color: #f9f9f9;
 	border: none;
-	text-align: left;
+	text-align: center;
 	width: 100%;
 	border-bottom: 1px solid #ddd; /* 각 제목 아래에 선을 추가합니다. */
 }
@@ -60,21 +70,27 @@
 	background-color: #e9e9e9;
 }
 
-.content {
-	margin: 100px 320px;
+.announcement-content {
+	display: none;
+	padding: 10px;
+	margin-bottom : 30px;
+	background-color: #f9f9f9;
+	border-top: 1px solid #ddd;
 	text-align: center;
-	width: 1500px;
-	padding: 20px;
-	padding-top: 70px; /* 파란색 헤더 아래 공백 */
+	width: 100%;
+}
+
+.announcement-title:last-child {
+	border-bottom: none;
 }
 
 .table-container {
-	width: 1300px;
+	width: 930px;
 	overflow-x: auto; /* 테이블이 너무 넓으면 가로 스크롤 활성화 */
 }
 
 table {
-	width: 1220px;
+	width: 930px;
 	border-collapse: collapse;
 	text-align: left;
 }
@@ -190,3 +206,5 @@ tr:nth-child(even) {
 		</div>
 	</div>
 </div>
+
+<%@ include file="../default/footer.jsp"%>

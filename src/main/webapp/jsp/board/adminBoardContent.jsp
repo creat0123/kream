@@ -51,7 +51,7 @@
 	text-align: center; /* 가운데 정렬 */
 	border-bottom: 1px solid #ddd;
 	margin-bottom: 30px;
-	width: 1220px;
+	width: 930px;
 	padding: 10px 0;
 }
 
@@ -70,7 +70,7 @@
 }
 
 .content {
-	margin: 100px 305px;
+	margin: 100px 200px;
 	text-align: center;
 	width: 1500px;
 	padding: 20px;
@@ -108,7 +108,7 @@
 
 .main_box {
 	width: 930px;
-	margin-left: 440px;
+	margin-left: 300px;
 	margin-top: 50px;
 	border: 1px solid #424242;
 	border-radius: 5px 5px 5px 5px;
@@ -198,3 +198,5 @@
 		</div>
 	</div>
 </div>
+
+<%@ include file="../default/footer.jsp"%>

@@ -228,4 +228,11 @@ public class ProductController {
 		
 		return "product/cal";
 	} 
+	
+	
+	// 상품 페이지 
+	@RequestMapping("shop")
+	public String Shop() {
+		return "product/shop";
+	}
 }
