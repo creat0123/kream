@@ -6,7 +6,7 @@ COPY .mvn/wrapper/maven-wrapper.properties .mvn/wrapper/maven-wrapper.properties
 COPY mvnw ./
 COPY mvnw.cmd ./
 COPY pom.xml ./
-COPY work ./work
+RUN chmod +x mvnw
 RUN ./mvnw dependency:resolve
 
 COPY src ./src
