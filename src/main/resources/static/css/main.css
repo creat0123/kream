@@ -1,16 +1,17 @@
 @charset "UTF-8";
 
 .section{
-	margin: 10px;
+	margin: 0%;
 	position: relative;
-	top: 90px;
+	top: 0%;
+	margin-left: -40px;
 }
 
 .section input[id*="slide"]{
 	display: none;
 }
 .section .slidewrap{
-	max-width: 1200px;
+	max-width: 100%;
 	margin: 0 auto;
 	overflow: hidden;
 }
@@ -29,8 +30,8 @@
 	position: relative;
 }
 .section .slidelist > li > a img {
-	width: 96%;
-	height: 500px;
+	width: 100%;
+	height: 600px;
 }
 
 .section .slidelist label{
@@ -47,9 +48,9 @@
 	background: url('../img/left.png') center center / 100% no-repeat;
 }
 
-.section .slidelist .right{
-	left: 85%;
-	background: url('../img/right.png') center center / 100% no-repeat;
+.section .slidewrap label.right {
+    right: 30px; /* 수정: 오른쪽 버튼을 오른쪽으로 이동 */
+    background: url('../img/right.png') center center / 100% no-repeat;
 }
 
 .section [id="slide01"]:checked ~ .slidewrap .slidelist > li {transform: translateX(0%);}

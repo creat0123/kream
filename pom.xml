@@ -102,6 +102,13 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/io.fabric8/docker-maven-plugin -->
+		<dependency>
+			<groupId>io.fabric8</groupId>
+			<artifactId>docker-maven-plugin</artifactId>
+			<version>0.43.4</version>
+		</dependency>
+
 
 	</dependencies>
 
