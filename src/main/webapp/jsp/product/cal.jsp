@@ -92,8 +92,8 @@
   <body>
     <div id='calendar'></div>
     <div id='event-info'></div>
-  </body>
     <div>
       <c:import url="/footer" />
     </div>
+  </body>
 </html>
