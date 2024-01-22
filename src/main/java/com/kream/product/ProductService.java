@@ -1,16 +1,22 @@
 package com.kream.product;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import jakarta.servlet.ServletContext;
 
 @Service
 public class ProductService {
 	@Autowired private ProductMapper mapper;
+	@Autowired ServletContext servletContext;
 	
 	// AJAX 사용
 	public List<Category2DTO> subcateList(int num) {
@@ -20,6 +26,7 @@ public class ProductService {
 	
 	// 상품 등록
 	public String insertProc(ProductDTO dto) {
+		System.out.println("이미지 "+dto.getImage());
 		int result = mapper.productInsert(dto);
 		if(result == 1)
 			return "success";
@@ -122,6 +129,7 @@ public class ProductService {
 	}
 
 	public String editProductProc(ProductDTO dto) {
+		System.out.println("이미지 "+dto.getImage());
 		int result = mapper.editProductProc(dto);
 		if (result == 1)
 			return "success";
@@ -134,15 +142,15 @@ public class ProductService {
 			return "success";
 		return "fail";
 	}
-
+	
+	// 경매 페이지
 	public void contentAuction(Model model, int no) {
 		AuctionDTO contents = mapper.contentAuction(no);
 		int max = mapper.maxBidprice(no);
-		System.out.println("max : "+max);
+		//System.out.println("max : "+max);
 		model.addAttribute("contents", contents);
 		model.addAttribute("max", max);
 		
-
 	}
 
 	// 경매 입찰
@@ -150,21 +158,6 @@ public class ProductService {
 		if(dto.getBidMemberId() == null || dto.getBidMemberId().trim().isEmpty())
 			return "login";
 		
-		// 현재 시간
-//	    Date currentDateTime = new Date();
-//
-//	    // 경매 시작일과 시작시간을 Date로 변환
-//	    Date auctionStartDateTime = dto1.getAuctionStartDay();//convertStringToDate(dto1.getAuctionStartDay(), dto1.getAuctionStartTime());
-//
-//	    // 경매 종료일과 종료시간을 Date로 변환
-//	    Date auctionEndDateTime = dto1.getAuctionEndDay();//convertStringToDate(dto1.getAuctionEndDay(), dto1.getAuctionEndTime());
-//
-//	    if (currentDateTime.before(auctionStartDateTime))
-//	        return "auction_not_started";
-//
-//	    if (currentDateTime.after(auctionEndDateTime))
-//	        return "auction_ended";
-
 		int max = mapper.maxBidprice(no);
 		if(max >= dto.getAuctionBidprice())
 			return "over";
@@ -175,25 +168,59 @@ public class ProductService {
 		return "fail";
 	}
 	
-	// 문자열을 Date로 변환하는 메소드
-//    public Date convertStringToDate(Date date, String timeString) {
-//        String combinedDateTimeString = date + " " + timeString;
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//
-//        try {
-//            return dateFormat.parse(combinedDateTimeString);
-//        } catch (Exception e) {
-//            // ParseException 발생 시 처리
-//            e.printStackTrace();
-//            return null; // 또는 예외 처리에 따른 적절한 반환값 설정
-//        }
-//    }
+	public void bidHistory(Model model, String sessionId) {
+		List<AuctionProgressDTO> bid = mapper.bidHistory(sessionId);
+		model.addAttribute("bid", bid);
+	}
+	
+	// 회원 입찰 결과 - 결제
+	public void bidResult(Model model, String sessionId) {
+		List<AuctionDTO> bid = mapper.bidResult(sessionId);
+		model.addAttribute("bid", bid);
+	}
+	
+	// 현황 업데이트
+	public void updateStatus() {
+		mapper.updateStatus();
+	}
 	
 	/* -------------- */
 	
 	public List<String> getPlannedDates(){
 		return mapper.getPlannedDates();
 	}
+	
+	private static final String UPLOAD_DIR = "C:\\javas\\final_workspace\\kream\\src\\main\\resources\\static\\img\\product\\";
+	
+	public String uploadImage(MultipartFile imageFile) {
+		System.out.println("Received image file: " + imageFile.getOriginalFilename());
+		if (imageFile.isEmpty()) {
+            return null; // 업로드된 파일이 없으면 null 반환하거나 에러 처리
+        }
+		try {
+            // 업로드 디렉토리가 존재하지 않으면 생성
+            File uploadDir = new File(UPLOAD_DIR);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
+            // 파일명 중복을 피하기 위해 UUID를 사용하여 고유한 파일명 생성
+            String originalFileName = imageFile.getOriginalFilename();
+            String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+            String uploadedFileName = UUID.randomUUID().toString() + extension;
+            
+            // 파일 저장
+            File dest = new File(UPLOAD_DIR + uploadedFileName);
+            imageFile.transferTo(dest);
+            // 저장된 파일명 반환
+            return uploadedFileName;
+        } catch (IOException e) {
+            e.printStackTrace();
+            // 업로드 실패 시 예외 처리
+            return null;
+        }
+    }
+
+
 
 	
 }

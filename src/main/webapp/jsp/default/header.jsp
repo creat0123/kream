@@ -171,6 +171,7 @@ html {
 						<li>
 						<c:choose>
 							<c:when test="${sessionScope.id eq 'admin'}">
+								<li><a class="small_button" href="/product/insert">상품관리</a></li>
 								<li><a class="small_button" href="/cal">회원관리</a></li>
 								<li><a class="small_button" href="/logout">Logout</a></li>
 							</c:when>

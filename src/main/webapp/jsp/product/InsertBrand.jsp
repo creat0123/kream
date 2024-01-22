@@ -14,13 +14,40 @@
     	box-shadow: 3px 3px 5px #888888; /* 그림자 설정 */
 	}
 </style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#insertForm').submit(function(e) {
+    	e.preventDefault(); // 폼 제출을 막음
+        
+        $.ajax({
+            url: 'InsertBrandProc',
+            method: 'POST',
+            data: $('#insertForm').serialize(), // 폼 데이터 전송
+            success: function(data) {
+            	var msg = data.msg;
+                if (msg === 'success') {
+                    window.close();
+            		}
+                else {
+                    alert('오류발생');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+    });
+});
+</script>
 <meta charset="UTF-8">
 <title>브랜드</title>
 </head>
 <body>
 	<div align="center">
 		<table>
-			<form action="InsertBrandProc" method="post">
+			<form action="InsertBrandProc" method="post" id="insertForm">
 				<tr><th>
 					<p>브랜드</p>
 				</th></tr>

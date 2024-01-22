@@ -28,11 +28,15 @@
 $(document).ready(function() {
     $('#editForm').submit(function(e) {
         e.preventDefault(); // 폼 제출을 막음
-		
+        var formData = new FormData(this);
+        
         $.ajax({
             url: 'editProductProc',
-            method: 'GET',
-            data: $('#editForm').serialize(), // 폼 데이터 전송
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            //data: $('#editForm').serialize(), // 폼 데이터 전송
             success: function(data) {
             	var msg = data.msg;
                 if (msg === 'success') {
@@ -44,10 +48,34 @@ $(document).ready(function() {
                 }
             },
             error: function(xhr, status, error) {
+            	alert(xhr.status);
                 console.log(error);
             }
         });
     });
+    
+ 	// 파일 입력(input type="file")이 변경되었을때
+    $('#inputImage').change(function() {
+        // 파일이 선택되었을 때 이미지를 미리보기
+        previewImage(this);
+    });
+    
+    function previewImage(input) {
+    	console.log('File input changed');
+    	// 입력된 파일이 존재하고, 첫 번째 파일이 있는 경우에만 실행
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+			
+            reader.onload = function(e) {
+            	console.log('Image preview updated');
+            	// 미리보기 이미지의 src 속성을 읽어들인 데이터 URL로 설정
+                $('#previewImage').attr('src', e.target.result);
+            }
+         	// FileReader를 사용하여 선택된 파일을 읽어들임
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
 });
 </script>
 <script type="text/javascript">
@@ -78,7 +106,7 @@ $(document).ready(function() {
 <body>
 	<div align="center">
 		<table>
-			<form action="insertProc" method="get" id="editForm">
+			<form action="editProductProc" method="post" id="editForm" enctype="multipart/form-data">
 				<input type="hidden" name="productNo" value="${edit.productNo }">
 				<tr>
 					<th colspan="2">
@@ -148,6 +176,13 @@ $(document).ready(function() {
 				<tr>
 					<td>사이즈 :</td>
 					<td><input type="text" name="size" value="${edit.size }"></td>
+				</tr>
+				<tr>
+					<td>사진 :</td>
+					<td><input type="file" name="imageFile" id="inputImage">
+						<!-- 기존 이미지 미리보기 -->
+        				<img id="previewImage" src="<c:if test="${not empty edit.image}">/img/product/${edit.image}</c:if>" alt="Product Image" style="max-width: 200px; max-height: 200px;">
+					</td>
 				</tr>
 				<tr>
 					<td align="center" colspan="2">

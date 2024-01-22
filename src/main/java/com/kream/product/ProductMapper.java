@@ -53,5 +53,13 @@ public interface ProductMapper {
 	int auctionBid(AuctionProgressDTO dto);
 
 	int maxBidprice(int no);
+
+	List<AuctionProgressDTO> bidHistory(String sessionId);
+
+	void updateStatus();
+
+	List<AuctionDTO> bidResult(String sessionId);
+
+	ProductDTO getProduct(int productNo);
 	
 }

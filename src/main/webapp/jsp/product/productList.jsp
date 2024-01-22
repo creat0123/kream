@@ -6,12 +6,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-	.table{
-		position: relative;
-		margin-top: 10%;
-	}
-</style>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script type="text/javascript">
 	function openEditAuction(productNo) {
@@ -48,10 +42,24 @@
 <meta charset="UTF-8">
 <title>상품목록</title>
 </head>
-<body class="table">
+<body>
 	<h3 align="center">상품목록</h3>
 	<div align="center">
-		<a href="auctionList"><button>경매목록</button></a>
+		<div class="buttons" style="text-align: left; margin-left: 10%;">
+			<button type="button" onclick="window.open(
+				'InsertCategory1', 'InsertCategory1', 'width=300, height=200, top=200, left=300');"
+					style="position: relative;">카테고리1 등록</button>
+			<button type="button" onclick="window.open(
+				'InsertCategory2', 'InsertCategory2', 'width=350, height=300, top=200, left=300');"
+					style="position: relative;">카테고리2 등록</button>
+			<button type="button" onclick="window.open(
+				'InsertBrand', 'InsertBrand', 'width=350, height=300, top=200, left=300');"
+					style="position: relative;">브랜드 등록</button>
+		</div>
+		<div class="buttons" style="text-align: right; margin-right: 10%; margin-bottom: 10px; margin-top:-24px;">
+			<a href="insert"><button>상품등록</button></a>
+			<a href="auctionList"><button>경매목록</button></a>
+		</div>
 	</div>
 	<c:choose>
 		<c:when test="${empty product}">
@@ -73,6 +81,7 @@
 					<th>상품 등록일</th>
 					<th>색상</th>
 					<th>사이즈</th>
+					<th>사진</th>
 					<th>수정</th>
 					<th>삭제</th>
 					<th>경매등록</th>
@@ -92,6 +101,10 @@
 						<td><fmt:formatDate value="${product.registDay}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 						<td>${product.color }</td>
 						<td>${product.size }</td>
+						<td><%-- ${product.image } --%>
+							<%-- <img th:src="@{/img/product/ + ${product.image}}" alt="Product Image" /> --%>
+							<img src="/img/product/${product.image}" alt="Product Image" />
+						</td>
 						<td><button onclick="openEditAuction(${product.productNo})" style="position: relative;">edit</button></td>
 						<td><button onclick="deleteCheck(${product.productNo})">delete</button></td>
 						<%-- <td><button onclick="openAddAuction(${product.productNo})">등록</button></td> --%>
@@ -99,6 +112,7 @@
 					</tr>
 				</c:forEach>
 			</table>
+			<br><br>
 		</c:otherwise>
 	</c:choose>
 </body>

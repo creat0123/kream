@@ -12,12 +12,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("product")
 public class ProductController {
 	@Autowired private ProductService service;
+	@Autowired private HttpSession session;
+	@Autowired private ProductMapper mapper;
 	
 	@RequestMapping("list")
 	public String productList(Model model) {
@@ -47,6 +53,12 @@ public class ProductController {
 	
 	@RequestMapping("insertProc")
 	private String insertProc(ProductDTO dto, Model model, RedirectAttributes ra) {
+		// 이미지 파일 처리
+	    MultipartFile imageFile = dto.getImageFile();
+	    if (imageFile != null && !imageFile.isEmpty()) {
+	        String fileName = service.uploadImage(imageFile);
+	        dto.setImage(fileName);
+	    }
 		String msg = service.insertProc(dto);
 		
 		if(msg.equals("success")) {
@@ -63,14 +75,11 @@ public class ProductController {
 	}
 	
 	@RequestMapping("InsertCategory1Proc")
-	public String InsertCategory1Proc(Category1DTO dto, Model model, RedirectAttributes ra) {
+	public ResponseEntity<Map<String, String>> InsertCategory1Proc(Category1DTO dto, Model model, RedirectAttributes ra) {
+		Map<String, String> response = new HashMap<>();
 		String msg = service.cate1Proc(dto);
-		
-		if(msg.equals("success")) {
-			ra.addFlashAttribute("msg", msg);
-			return "redirect:cate1List";
-		}
-		return "product/InsertCategory1";
+		response.put("msg", msg);
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
 	@RequestMapping("cate1List")
@@ -87,14 +96,11 @@ public class ProductController {
 	}
 	
 	@RequestMapping("InsertCategory2Proc")
-	public String InsertCategory2Proc(Category2DTO dto, Model model, RedirectAttributes ra) {
+	public ResponseEntity<Map<String, String>> InsertCategory2Proc(Category2DTO dto, Model model, RedirectAttributes ra) {
+		Map<String, String> response = new HashMap<>();
 		String msg = service.cate2Proc(dto);
-		
-		if(msg.equals("success")) {
-			ra.addAttribute("msg", msg);
-			return "redirect:cate2List";
-		}
-		return "product/InsertCategory2";
+		response.put("msg", msg);
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
 	@RequestMapping("cate2List")
@@ -110,14 +116,11 @@ public class ProductController {
 	}
 	
 	@RequestMapping("InsertBrandProc")
-	public String InsertBrandProc(BrandDTO dto, Model model, RedirectAttributes ra) {
+	public ResponseEntity<Map<String, String>> InsertBrandProc(BrandDTO dto, Model model, RedirectAttributes ra) {
+		Map<String, String> response = new HashMap<>();
 		String msg = service.brandProc(dto);
-		
-		if(msg.equals("success")) {
-			ra.addAttribute("msg", msg);
-			return "redirect:brandList";
-		}
-		return "product/InsertBrand";
+		response.put("msg", msg);
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
 	@RequestMapping("brandList")
@@ -188,6 +191,19 @@ public class ProductController {
 	
 	@RequestMapping("editProductProc")
 	private ResponseEntity<Map<String, String>> editProductProc(ProductDTO dto, Model model, RedirectAttributes ra) {
+		// 이미지 파일 처리
+		//System.out.println("image "+dto.getImageFile());
+	    MultipartFile imageFile = dto.getImageFile();
+	    if (imageFile != null && !imageFile.isEmpty()) {
+	        String fileName = service.uploadImage(imageFile);
+	        dto.setImage(fileName);
+	        System.out.println("Uploaded image file: " + fileName);
+	    } else {
+	        // 새로운 이미지가 선택되지 않았을 경우, 기존 이미지를 그대로 사용
+	        ProductDTO existingProduct = mapper.getProduct(dto.getProductNo());
+	        System.out.println(existingProduct);
+	        dto.setImage(existingProduct.getImage());
+	    }
 		Map<String, String> response = new HashMap<>();
 		String msg = service.editProductProc(dto);
 		response.put("msg", msg);
@@ -219,6 +235,31 @@ public class ProductController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
+	// 현황 업데이트
+	@ResponseBody
+	@RequestMapping("updateStatus")
+	private String updateStatus() {
+	    service.updateStatus();
+	    return "success";
+	}
+	
+	// 회원 입찰 내역
+	@RequestMapping("bidHistory")
+	private String bidHistory(Model model) {
+		String sessionId = (String)session.getAttribute("id");
+		System.out.println("sessionId : "+sessionId);
+		service.bidHistory(model, sessionId);
+		return "product/bidHistory";
+	}
+	
+	// 회원 입찰 결과 - 결제
+	@RequestMapping("bidResult")
+	private String bidResult(Model model) {
+		String sessionId = (String)session.getAttribute("id");
+		//System.out.println("sessionId : "+sessionId);
+		service.bidResult(model, sessionId);
+		return "product/bidResult";
+	}
 	
 	// 달력
 	@RequestMapping("cal")
@@ -232,7 +273,10 @@ public class ProductController {
 	
 	// 상품 페이지 
 	@RequestMapping("shop")
-	public String Shop() {
+	public String Shop(Model model) {
+		service.auctionList(model);
 		return "product/shop";
 	}
+	
+	
 }

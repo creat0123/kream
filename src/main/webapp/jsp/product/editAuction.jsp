@@ -95,7 +95,7 @@ $(document).ready(function() {
 					<td>경매 현황 :</td>
 					<td>
 						<select name="auctionStatus">
-							<option>==${edit.statusName }==</option>
+							<option value="${edit.statusNo }">==${edit.statusName }==</option>
 							<c:forEach var="status" items="${status }">
 								<option value="${status.statusNo }">${status.statusName }</option>
 							</c:forEach>

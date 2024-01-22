@@ -1,9 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script type="text/javascript">
+	function openEditAuction(auctionNo) {
+		window.open('editAuction?no=' + auctionNo, 'EditAuction', 'width=520, height=400, top=150, left=700');
+	}
+</script>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>쇼핑몰 상품 페이지</title>
@@ -54,57 +61,32 @@
     <header>
         <h1>경매 상품 페이지</h1>
     </header>
- 
+<%-- <tr>
+	<td onclick='openAuction(${auction.auctionNo})'>${auction.auctionNo }</td>
+	<td onclick='openAuction(${auction.auctionNo})'>${auction.product.nameKr} | ${auction.product.color} | ${auction.product.size}</td>
+	<td><fmt:formatDate value="${auction.auctionStartDay}" pattern="yyyy-MM-dd" /></td>
+	<td><fmt:formatDate value="${auction.auctionEndDay}" pattern="yyyy-MM-dd" /></td>
+	<td>${auction.auctionStartTime } ~ ${auction.auctionEndTime }</td>
+	<td>₩<fmt:formatNumber value="${auction.auctionStartPrice}" pattern="#,###" /></td>
+	<td><fmt:formatDate value="${auction.auctionRegist}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+	<td>${auction.statusName }</td>
+	<td><button onclick="openEditAuction(${auction.auctionNo})" style="position: relative;">edit</button></td>
+	<td><button onclick="deleteCheck(${auction.auctionNo})">delete</button></td>
+</tr> --%>
     <div class="product-container">
+	<c:forEach var="auction" items="${auction}">
         <div class="product">
-            <img src="/img/JJANG3.png" alt="Product 1">
-            <h2>상품 1</h2>
-            <p>상품 설명이 여기에 들어갑니다.</p>
-            <p>가격: $20</p>        
+            <!-- <img src="/img/JJANG3.png" alt="Product 1"> -->
+            <%-- <img src="/img/product/${auction.product.image}" alt="Product Image" onclick='openAuction(${auction.auctionNo})'> /> --%>
+            <a href="contentAuction?no=${auction.auctionNo }">
+			    <img src="/img/product/${auction.product.image}" alt="Product Image">
+			</a>
+            <h2>${auction.product.nameKr }</h2>
+            <h5>${auction.product.nameEn }</h5>
+            <p>${auction.product.brandName }</p>
+            <p>상품 출시가: <fmt:formatNumber value="${auction.product.firstPrice}" pattern="#,###" /></p>
         </div>
-
-        <div class="product">
-            <img src="/img/JJANG.png" alt="Product 2">
-            <h2>상품 2</h2>
-            <p>상품 설명이 여기에 들어갑니다.</p>
-            <p>가격: $30</p>
-        </div>
-		
-		 <div class="product">
-            <img src="/img/JJANG3.png" alt="Product 1">
-            <h2>상품 1</h2>
-            <p>상품 설명이 여기에 들어갑니다.</p>
-            <p>가격: $20</p>        
-        </div>
-        
-         <div class="product">
-            <img src="/img/JJANG3.png" alt="Product 1">
-            <h2>상품 1</h2>
-            <p>상품 설명이 여기에 들어갑니다.</p>
-            <p>가격: $20</p>        
-        </div>
-        
-         <div class="product">
-            <img src="/img/JJANG3.png" alt="Product 1">
-            <h2>상품 1</h2>
-            <p>상품 설명이 여기에 들어갑니다.</p>
-            <p>가격: $20</p>        
-        </div>
-        
-         <div class="product">
-            <img src="/img/JJANG3.png" alt="Product 1">
-            <h2>상품 1</h2>
-            <p>상품 설명이 여기에 들어갑니다.</p>
-            <p>가격: $20</p>        
-        </div>
-        
-         <div class="product">
-            <img src="/img/JJANG3.png" alt="Product 1">
-            <h2>상품 1</h2>
-            <p>상품 설명이 여기에 들어갑니다.</p>
-            <p>가격: $20</p>        
-        </div>
-        <!-- 추가 상품들을 원하는 만큼 복사하여 넣을 수 있습니다. -->
+	</c:forEach>
 
     </div>
 

@@ -1,9 +1,9 @@
 package com.kream.product;
 
-
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 public class ProductDTO {
 	private int productNo;
@@ -22,8 +22,10 @@ public class ProductDTO {
 	private Date registDay;
 	private String color;
 	private String size;
+	private String image;
 	private String cate1Name;
 	private String cate2Name;
+	private MultipartFile imageFile;
 	
 	public int getProductNo() {
 		return productNo;
@@ -112,6 +114,12 @@ public class ProductDTO {
 	public String getCate1Name() {
 		return cate1Name;
 	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+        this.image = image;
+    }
 	public void setCate1Name(String cate1Name) {
 		this.cate1Name = cate1Name;
 	}
@@ -120,6 +128,12 @@ public class ProductDTO {
 	}
 	public void setCate2Name(String cate2Name) {
 		this.cate2Name = cate2Name;
+	}
+	public MultipartFile getImageFile() {
+		return imageFile;
+	}
+	public void setImageFile(MultipartFile imageFile) {
+		this.imageFile = imageFile;
 	}
 	
 

@@ -19,6 +19,7 @@
 		<result column="regist_day" property="registDay"/>
 		<result column="color" property="color"/>
 		<result column="size" property="size"/>
+		<result column="image" property="image"/>
 		<result column="cate2_name" property="cate2Name"/>
 		<result column="cate1_name" property="cate1Name"/>
 	</resultMap>
@@ -49,9 +50,11 @@
 		<result column="auction_end_time" property="auctionEndTime"/>
 		<result column="auction_start_price" property="auctionStartPrice"/>
 		<result column="auction_regist" property="auctionRegist"/>
+		<result column="status_no" property="statusNo"/>
 		<result column="status_name" property="statusName"/>
 		
 		<association property="product" resultMap="productResultMap"/>
+		<association property="progress" resultMap="progressResultMap"/>
 	</resultMap>
 	
 	<resultMap type="com.kream.product.AuctionStatusDTO" id="status">
@@ -59,12 +62,13 @@
 		<result column="status_name" property="statusName"/>
 	</resultMap>
 
-	<resultMap type="com.kream.product.AuctionProgressDTO" id="progress">
+	<resultMap type="com.kream.product.AuctionProgressDTO" id="progressResultMap">
 		<id column="bid_no" property="bidNo"/>
 		<result column="bid_member_id" property="bidMemberId"/>
 		<result column="bid_auction_no" property="bidAuctionNo"/>
 		<result column="auction_bidprice" property="auctionBidprice"/>
 		<result column="auction_bidtime" property="auctionBidtime"/>
+		<result column="max_bidprice" property="maxBidprice"/>
 	</resultMap>
 	
 	<!-- 카테고리2 리스트(1차값 넘김) -->
@@ -75,7 +79,8 @@
 	<!-- 상품 추가 -->
 	<insert id="productInsert" parameterType="com.kream.product.ProductDTO">
 		insert into product 
-			values(default, #{productId}, #{category1}, #{category2}, #{brand}, #{nameKr}, #{nameEn}, #{content}, #{firstPrice}, #{releaseDay}, now(), #{color}, #{size})
+			values(default, #{productId}, #{category1}, #{category2}, #{brand}, #{nameKr}, #{nameEn}, 
+					#{content}, #{firstPrice}, #{releaseDay}, now(), #{color}, #{size}, #{image})
 	</insert>
 	
 	<!-- 상품 목록 -->
@@ -83,7 +88,7 @@
 		SELECT * FROM product P
 		JOIN category1 C1 ON P.category1 = C1.cate1_no
 		JOIN category2 C2 ON P.category2 = C2.cate2_no
-		JOIN brand BR ON P.brand = C2.cate2_no
+		JOIN brand BR ON P.brand = BR.brand_no
 	</select>
 	
 	<!-- 카테고리1 추가 -->
@@ -162,11 +167,18 @@
 		DELETE FROM auction WHERE auction_no = #{no}
 	</delete>
 	
+	<!-- 상품 상세보기 -->
+	<select id="getProduct" resultMap="productResultMap">
+		SELECT * 
+		FROM product
+		WHERE product_no = #{productNo}
+	</select>
+	
 	<!-- 상품 수정화면 -->
 	<select id="editProduct" resultMap="productResultMap">
 		SELECT A.*, B.cate1_name, C.cate2_name, D.brand_name 
-			FROM product A, category1 B, category2 C, brand D 
-				WHERE A.category1 = B.cate1_no AND A.category2 = C.cate2_no AND A.brand = D.brand_no AND product_no=#{no}
+		FROM product A, category1 B, category2 C, brand D 
+		WHERE A.category1 = B.cate1_no AND A.category2 = C.cate2_no AND A.brand = D.brand_no AND product_no=#{no}
 	</select>
 	
 	<!-- 상품 수정 -->
@@ -185,7 +197,8 @@
 		release_day = #{releaseDay},
 		regist_day = #{registDay},
 		color = #{color},
-		size = #{size}
+		size = #{size},
+		image = #{image}
 	WHERE product_no = #{productNo}
 	</update>
 	
@@ -217,13 +230,46 @@
 		SELECT COALESCE(MAX(auction_bidprice), 0) FROM auction_progress WHERE bid_auction_no = #{no}
 	</select>
 	
+	<!-- 현재 날짜와 시간을 기준으로 경매 상태 업데이트 -->
+	<update id="updateStatus">
+	    <![CDATA[
+	    UPDATE auction
+	    SET auction_status = 
+	        CASE 
+	            WHEN NOW() < CONCAT(auction_start_day, ' ', auction_start_time) THEN 1
+	            WHEN NOW() BETWEEN CONCAT(auction_start_day, ' ', auction_start_time) AND CONCAT(auction_end_day, ' ', auction_end_time) THEN 2
+	            WHEN NOW() > CONCAT(auction_end_day, ' ', auction_end_time) THEN 3
+	            ELSE 0
+	        END
+	    ]]>
+	</update>
+
+	<!-- 입찰 내역 -->
+	<select id="bidHistory" resultMap="progressResultMap">
+		SELECT * FROM auction_progress WHERE bid_member_id = #{sessionId}
+	</select>
+
+	<!-- 입찰 결과 -->
+	<select id="bidResult" resultMap="auction">
+		SELECT *, MAX(auction_bidprice) AS max_bidprice
+		FROM auction_progress AP
+		JOIN auction A ON AP.bid_auction_no = A.auction_no
+		JOIN product P ON A.auction_id = P.product_no
+		JOIN category1 C1 ON P.category1 = C1.cate1_no
+		JOIN category2 C2 ON P.category2 = C2.cate2_no
+		JOIN brand BR ON P.brand = BR.brand_no
+		WHERE A.auction_status = 3
+		AND bid_member_id = #{sessionId}
+		GROUP BY bid_auction_no
+	</select>
+	
 	<!--  -->
 	
 	<!-- 상품 날짜 받아오기 -->
 	<select id="getPlannedDates" resultType="java.lang.String">
 		SELECT DISTINCT auction_start_day
 		FROM auction
-		WHERE auction_start_day IS NOT NULL;
+		WHERE auction_start_day IS NOT NULL
 	</select>
 </mapper>
 

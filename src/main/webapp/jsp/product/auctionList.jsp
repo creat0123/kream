@@ -6,12 +6,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-	.table{
-		position: relative;
-		margin-top: 10%;
-	}
-</style>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script type="text/javascript">
 	function openEditAuction(auctionNo) {
@@ -43,17 +37,43 @@
 	function openAuction(productNo) {
 		window.location.href = 'contentAuction?no=' + productNo;
 	}
+	function updateAuctionStatus() {
+		$.ajax({
+            url: 'updateStatus',
+            type: 'POST',
+            success: function(response) {
+            	if (response === "success") {
+            		alert("업데이트 성공");
+            		location.reload();
+            	} else
+            		alert("업데이트 실패");
+            },
+            error: function (xhr, status, error) {
+            	alert(xhr.status);
+            	console.log(error);
+            }
+        });
+	}
 </script>
+<style type="text/css">
+	
+</style>
 <meta charset="UTF-8">
 <title>경매목록</title>
 </head>
-<body class="table">
+<body>
 	<h3 align="center">경매목록</h3>
 	<c:choose>
 		<c:when test="${empty auction}">
 			<h3>등록된 데이터가 없습니다</h3>
 		</c:when>
 		<c:otherwise>
+			<div class="buttons" style="text-align: right; margin-right: 30%; margin-bottom: 10px; margin-top: -15px;">
+				<div style="text-align: right;">
+					<a href="list"><button>상품목록</button></a>
+					<button onclick="updateAuctionStatus()">현황 업데이트</button>
+				</div>
+			</div>
 			<table border="1" align="center">
 				<tr>
 					<th>경매번호</th>
@@ -82,6 +102,7 @@
 					</tr>
 				</c:forEach>
 			</table>
+			<br><br>
 		</c:otherwise>
 	</c:choose>
 </body>

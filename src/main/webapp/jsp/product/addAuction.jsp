@@ -56,7 +56,7 @@
 				</tr>
 				<tr>
 					<td>경매 시작가 :</td>
-					<td>\ <!-- <input type="number" name="auctionStartPrice"> -->
+					<td>₩ <!-- <input type="number" name="auctionStartPrice"> -->
 					<input type="text" id="amountInput" name="auctionStartPrice" oninput="formatAmount(this)" required></td>
 				</tr>
 				<tr>

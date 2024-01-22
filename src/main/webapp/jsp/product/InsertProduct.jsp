@@ -16,10 +16,10 @@
     	box-shadow: 3px 3px 5px #888888; /* 그림자 설정 */
 		position: relative;
 	}
-	.buttons{
+	/* .buttons{
 		position: relative;
-		margin-top: 8%;
-	}
+		margin-top: 3%;
+	} */
 </style>
 <script>
 	function formatAmount(input) {
@@ -56,22 +56,26 @@ $(document).ready(function() {
 </head>
 <body align="center">
 	<div class="buttons">
-		<button type="button" onclick="window.open(
-			'InsertCategory1', 'InsertCategory1', 'width=300, height=200, top=200, left=300');"
-				style="position: relative;">카테고리1 등록</button>
-		<button type="button" onclick="window.open(
-			'InsertCategory2', 'InsertCategory2', 'width=350, height=300, top=200, left=300');"
-				style="position: relative;">카테고리2 등록</button>
-		<button type="button" onclick="window.open(
-			'InsertBrand', 'InsertBrand', 'width=350, height=300, top=200, left=300');"
-				style="position: relative;">브랜드 등록</button><br>
-		<a href="list"><button>상품목록</button></a>
-		<a href="auctionList"><button>경매목록</button></a>
+		<div style="margin: 10px;">
+			<button type="button" onclick="window.open(
+				'InsertCategory1', 'InsertCategory1', 'width=300, height=200, top=200, left=300');"
+					style="position: relative;">카테고리1 등록</button>
+			<button type="button" onclick="window.open(
+				'InsertCategory2', 'InsertCategory2', 'width=350, height=300, top=200, left=300');"
+					style="position: relative;">카테고리2 등록</button>
+			<button type="button" onclick="window.open(
+				'InsertBrand', 'InsertBrand', 'width=350, height=300, top=200, left=300');"
+					style="position: relative;">브랜드 등록</button><br>
+		</div>
+		<div>
+			<a href="list"><button>상품목록</button></a>
+			<a href="auctionList"><button>경매목록</button></a>
+		</div>
 	</div>
 	
 	<div align="center">
 		<table class="table">
-			<form action="insertProc" method="post">
+			<form action="insertProc" method="post" enctype="multipart/form-data">
 				<tr>
 					<th colspan="2">
 						<p>상품추가</p>
@@ -125,7 +129,7 @@ $(document).ready(function() {
 				</tr>
 				<tr>
 					<td>출시가격 :</td>
-					<td>\ <input type="text" id="amountInput" name="firstPrice" placeholder="0"
+					<td>₩ <input type="text" id="amountInput" name="firstPrice" placeholder="0"
 						oninput="formatAmount(this)" required size="7"></td>
 				</tr>
 				<tr>
@@ -139,6 +143,10 @@ $(document).ready(function() {
 				<tr>
 					<td>사이즈 :</td>
 					<td><input type="text" name="size"></td>
+				</tr>
+				<tr>
+					<td>사진 :</td>
+					<td><input type="file" name="imageFile" id="inputImage"></td>
 				</tr>
 				<tr>
 					<td align="center" colspan="2">

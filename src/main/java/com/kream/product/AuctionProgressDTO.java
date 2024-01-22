@@ -11,6 +11,7 @@ public class AuctionProgressDTO {
 	private int auctionBidprice;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date auctionBidtime;
+	private int maxBidprice;
 	
 	
 	public int getBidNo() {
@@ -43,4 +44,11 @@ public class AuctionProgressDTO {
 	public void setAuctionBidtime(Date auctionBidtime) {
 		this.auctionBidtime = auctionBidtime;
 	}
+	public int getMaxBidprice() {
+		return maxBidprice;
+	}
+	public void setMaxBidprice(int maxBidprice) {
+		this.maxBidprice = maxBidprice;
+	}
+	
 }
