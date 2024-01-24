@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 
 import com.kream.PageService;
 
-import jakarta.servlet.annotation.HttpMethodConstraint;
 import jakarta.servlet.http.HttpSession;
 
 @Service
@@ -17,49 +16,52 @@ public class MemberService {
 
 	@Autowired private IMemberMapper mapper;
 	@Autowired private HttpSession session;
-	 public String registProc(MemberDTO member) {
-	      if(member.getId() == null || member.getId().trim().isEmpty()) {
-	         return "아이디를 입력하세요.";
-	      }
-	      if(member.getPw() == null || member.getPw().trim().isEmpty()) {
-	         return "비밀번호를 입력하세요.";
-	      }
-	      if(member.getPw().equals(member.getConfirm()) == false) {
-	         return "두 비밀번호를 일치하여 입력하세요.";
-	      }
-	      if(member.getName() == null || member.getName().trim().isEmpty()) {
-	         return "이름을 입력하세요.";
-	      }
-	      
-	      MemberDTO check = mapper.login(member.getId());
-	      if(check != null) {
-	         return "이미 사용중인 아이디 입니다.";
-	      }
-	      
-	      /* 암호화 과정 */
-	      BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-	      String secretPass = encoder.encode(member.getPw());
-	      member.setPw(secretPass);
-	      /*
-	         암호문 : $2a$10$HJ3CfbI4MxDDSM3emVsuNudQyQE5StjV7g/UGK2vSQZQRmGy23OXi
-	         암호문 길이: 60
-	         
-	         암호문 : $2a$10$nGmxZK6PVs.NV.QY.UX2T.OuGprkSwMs7FrNq6sOi1RfFPflQWUmO
-	         암호문 길이: 60
-	         
-	         pw 컬럼의 크기를 암호문 크기와 같거나 크게 변경
-	         ALTER TABLE db_quiz MODIFY pw varchar2(60);
-	         COMMIT;
-	       */
-	      System.out.println("암호문 : " + secretPass);
-	      System.out.println("암호문 길이: " + secretPass.length());
-	      
-	      int result = mapper.registProc(member);
-	      if(result == 1)
-	         return "회원 등록 완료";
-	      
-	      return "회원 등록을 다시 시도하세요.";
-	   }
+	public String registProc(MemberDTO member) {
+		if(member.getId() == null || member.getId().trim().isEmpty()) {
+			return "아이디를 입력하세요.";
+		}
+		if(member.getPw() == null || member.getPw().trim().isEmpty()) {
+			return "비밀번호를 입력하세요.";
+		}
+		if(member.getPw().equals(member.getConfirm()) == false) {
+			return "두 비밀번호를 일치하여 입력하세요.";
+		}
+		if(member.getName() == null || member.getName().trim().isEmpty()) {
+			return "이름을 입력하세요.";
+		}
+		
+		MemberDTO check = mapper.login(member.getId());
+		if(check != null) {
+			return "이미 사용중인 아이디 입니다.";
+		}
+		
+		
+		
+		/* 암호화 과정 */
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String secretPass = encoder.encode(member.getPw());
+		member.setPw(secretPass);
+		/*
+			암호문 : $2a$10$HJ3CfbI4MxDDSM3emVsuNudQyQE5StjV7g/UGK2vSQZQRmGy23OXi
+			암호문 길이: 60
+			
+			암호문 : $2a$10$nGmxZK6PVs.NV.QY.UX2T.OuGprkSwMs7FrNq6sOi1RfFPflQWUmO
+			암호문 길이: 60
+			
+			pw 컬럼의 크기를 암호문 크기와 같거나 크게 변경
+			ALTER TABLE db_quiz MODIFY pw varchar2(60);
+			COMMIT;
+		 */
+		System.out.println("암호문 : " + secretPass);
+		System.out.println("암호문 길이: " + secretPass.length());
+		
+		int result = mapper.registProc(member);
+		if(result == 1)
+			return "회원 등록 완료";
+		
+		return "회원 등록을 다시 시도하세요.";
+	}
+
 	public String loginProc(String id, String pw) {
 		
 		if(id == null || id.trim().isEmpty()) {
@@ -68,6 +70,7 @@ public class MemberService {
 		if(pw == null || pw.trim().isEmpty()) {
 			return "비밀번호를 입력하세요.";
 		}
+		
 		
 		MemberDTO check = mapper.login(id);
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -300,5 +303,6 @@ public class MemberService {
 		return "삭제 실패. 관리자에게 문의해 주세요.";
 		
 	}
-	
 }
+
+

@@ -55,20 +55,14 @@
 					<td><input type="time" name="auctionEndTime"></td>
 				</tr>
 				<tr>
-					<td>경매 시작가 :</td>
+					<td>제품 출시가 :</td>
 					<td>₩ <!-- <input type="number" name="auctionStartPrice"> -->
-					<input type="text" id="amountInput" name="auctionStartPrice" oninput="formatAmount(this)" required></td>
+					<fmt:formatNumber value="${product.firstPrice}" pattern="#,###" /></td>
 				</tr>
 				<tr>
-					<td>경매 현황 :</td>
-					<td>
-						<select name="auctionStatus">
-							<option>==선택==</option>
-							<c:forEach var="status" items="${status }">
-								<option value="${status.statusNo }">${status.statusName }</option>
-							</c:forEach>
-						</select>
-					</td>
+					<td>경매 시작가 :</td>
+					<td>₩ <!-- <input type="number" name="auctionStartPrice"> -->
+					<input type="text" id="amountInput" name="auctionStartPrice" oninput="formatAmount(this)" size="8" required></td>
 				</tr>
 				<tr>
 					<td align="center" colspan="2">

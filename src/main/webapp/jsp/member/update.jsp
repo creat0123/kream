@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:import url="/header" />
-<script src="/js/dbQuiz.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
     function sample6_execDaumPostcode() {
@@ -77,7 +76,7 @@
 }
 .btn-w input{
 	border:none;
-	background-color: lightcoral;
+	background-color: #87ceeb;
 	padding: 10px;
 	color: #fff;
 	border-radius: 10px;

@@ -9,14 +9,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.ErrorResponse;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
+import okhttp3.internal.http2.ErrorCode;
 
 @Controller
 @RequestMapping("product")
@@ -29,11 +34,6 @@ public class ProductController {
 	public String productList(Model model) {
 		service.productList(model);
 		return "product/productList";
-	}
-	
-	@RequestMapping("list1")
-	private String list1() {
-		return "product/list1";
 	}
 	
 	@RequestMapping("insert")
@@ -215,8 +215,16 @@ public class ProductController {
 		Map<String, String> response = new HashMap<>();
 		String msg = service.deleteProduct(no);
 		response.put("msg", msg);
-		return new ResponseEntity<>(response, HttpStatus.OK);
+		return new ResponseEntity<>(response, HttpStatus.OK); // uploadFilePath
 	}
+	
+//	@RequestMapping("deleteProduct")
+//	public ResponseEntity<Map<String, String>> deleteProduct(int no, Model model, RedirectAttributes ra) {
+//		Map<String, String> response = new HashMap<>();
+//		String msg = service.deleteProduct(no);
+//		response.put("msg", msg);
+//		return new ResponseEntity<>(response, HttpStatus.OK);
+//	}
 	
 	@RequestMapping("contentAuction")
 	private String contentAuction(Model model, int no) {
@@ -277,6 +285,7 @@ public class ProductController {
 		service.auctionList(model);
 		return "product/shop";
 	}
+	
 	
 	
 }

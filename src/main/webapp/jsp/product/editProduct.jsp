@@ -114,8 +114,8 @@ $(document).ready(function() {
 					</th>
 				</tr>
 				<tr>
-					<td>모델번호 :</td>
-					<td><input type="text" name="productId" value="${edit.productId }"></td>
+					<td width="115px">모델번호 :</td>
+					<td width="1px"><input type="text" name="productId" value="${edit.productId }"></td>
 				</tr>
 				<tr>
 					<td>카테고리1</td>
@@ -161,7 +161,7 @@ $(document).ready(function() {
 				</tr>
 				<tr>
 					<td>출시가격 :</td>
-					<td>\ <input type="text" id="amountInput" name="firstPrice" value="${edit.firstPrice }"
+					<td>₩ <input type="text" id="amountInput" name="firstPrice" value="${edit.firstPrice }"
 						oninput="formatAmount(this)" required size="7"></td>
 				</tr>
 				<tr>
@@ -181,7 +181,7 @@ $(document).ready(function() {
 					<td>사진 :</td>
 					<td><input type="file" name="imageFile" id="inputImage">
 						<!-- 기존 이미지 미리보기 -->
-        				<img id="previewImage" src="<c:if test="${not empty edit.image}">/img/product/${edit.image}</c:if>" alt="Product Image" style="max-width: 200px; max-height: 200px;">
+        				<img id="previewImage" src="<c:if test="${not empty edit.image}">https://asta-s3.s3.ap-northeast-2.amazonaws.com/image/${edit.image}</c:if>" alt="Product Image" style="max-width: 200px; max-height: 200px;">
 					</td>
 				</tr>
 				<tr>

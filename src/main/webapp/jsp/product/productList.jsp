@@ -9,10 +9,10 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script type="text/javascript">
 	function openEditAuction(productNo) {
-		window.open('editProduct?no=' + productNo, 'EditProduct', 'width=520, height=600, top=150, left=700');
+		window.open('editProduct?no=' + productNo, 'EditProduct', 'width=470, height=700, top=150, left=700');
 	}
 	function openAddAuction(productNo) {
-		window.open('addAuction?no=' + productNo, 'AddAuction', 'width=520, height=400, top=150, left=700');
+		window.open('addAuction?no=' + productNo, 'AddAuction', 'width=550, height=400, top=150, left=700');
 	}
 	function deleteCheck(productNo) {
 		result = confirm('진짜로 삭제하겠습니까?');
@@ -103,7 +103,9 @@
 						<td>${product.size }</td>
 						<td><%-- ${product.image } --%>
 							<%-- <img th:src="@{/img/product/ + ${product.image}}" alt="Product Image" /> --%>
-							<img src="/img/product/${product.image}" alt="Product Image" />
+							<%-- <img src="/img/product/${product.image}" alt="Product Image" /> --%>
+							<img src="https://asta-s3.s3.ap-northeast-2.amazonaws.com/image/${product.image }"
+								alt="Product Image" />
 						</td>
 						<td><button onclick="openEditAuction(${product.productNo})" style="position: relative;">edit</button></td>
 						<td><button onclick="deleteCheck(${product.productNo})">delete</button></td>

@@ -27,7 +27,7 @@
 }
 .btn-w input,button{
 	border:none;
-	background-color: lightcoral;
+	background-color: #87ceeb;
 	padding: 10px;
 	color: #fff;
 	border-radius: 10px;

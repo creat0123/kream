@@ -1,6 +1,5 @@
 package com.kream.product;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
@@ -9,7 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 
 import jakarta.servlet.ServletContext;
 
@@ -99,6 +102,8 @@ public class ProductService {
 
 	// 파라미터 no받음 <오버로딩>
 	public void productList(Model model, int no) {
+		ProductDTO product = mapper.productContent(no);
+		model.addAttribute("product", product);
 		model.addAttribute("no", no);
 	}
 
@@ -135,12 +140,22 @@ public class ProductService {
 			return "success";
 		return "fail";
 	}
-
+	
 	public String deleteProduct(int no) {
-		int result = mapper.deleteProduct(no);
-		if (result == 1)
-			return "success";
-		return "fail";
+		ProductDTO dto = mapper.imgName(no); // 삭제할 이미지 이름
+		String imgName = dto.getImage();
+		String key = "image/" + imgName;
+		
+		boolean isObjectExist = amazonS3Client.doesObjectExist(S3Bucket, key);
+		if (isObjectExist) {
+			int result = mapper.deleteProduct(no);
+			if (result == 1) {
+				amazonS3Client.deleteObject(S3Bucket, key);
+				return "success";
+			}
+			return "fail-result";
+		}
+		return "fail-s3";
 	}
 	
 	// 경매 페이지
@@ -190,7 +205,10 @@ public class ProductService {
 		return mapper.getPlannedDates();
 	}
 	
-	private static final String UPLOAD_DIR = "C:\\javas\\final_workspace\\kream\\src\\main\\resources\\static\\img\\product\\";
+	//private static final String UPLOAD_DIR = "C:\\javas\\final_workspace\\kream\\src\\main\\resources\\static\\img\\product\\";
+	
+	@Autowired AmazonS3Client amazonS3Client;
+	private String S3Bucket = "asta-s3";
 	
 	public String uploadImage(MultipartFile imageFile) {
 		System.out.println("Received image file: " + imageFile.getOriginalFilename());
@@ -198,29 +216,32 @@ public class ProductService {
             return null; // 업로드된 파일이 없으면 null 반환하거나 에러 처리
         }
 		try {
-            // 업로드 디렉토리가 존재하지 않으면 생성
-            File uploadDir = new File(UPLOAD_DIR);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdirs();
-            }
             // 파일명 중복을 피하기 위해 UUID를 사용하여 고유한 파일명 생성
             String originalFileName = imageFile.getOriginalFilename();
-            String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
-            String uploadedFileName = UUID.randomUUID().toString() + extension;
             
-            // 파일 저장
-            File dest = new File(UPLOAD_DIR + uploadedFileName);
-            imageFile.transferTo(dest);
+            int index = originalFileName.lastIndexOf(".");
+            String ext = originalFileName.substring(index + 1);
+            String storeFileName = UUID.randomUUID() + "." + ext;
+            String key = "image/" + storeFileName;
+            
+            //String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+            //String uploadedFileName = UUID.randomUUID().toString() + extension;
+            
+            ObjectMetadata objectMetaData = new ObjectMetadata();
+			objectMetaData.setContentType(imageFile.getContentType());
+			objectMetaData.setContentLength(imageFile.getSize()); // 파일크기
+            
+			// S3에 업로드
+			amazonS3Client.putObject(
+				new PutObjectRequest(S3Bucket, key, imageFile.getInputStream(), objectMetaData)
+						.withCannedAcl(CannedAccessControlList.PublicRead));
             // 저장된 파일명 반환
-            return uploadedFileName;
+            return storeFileName;
         } catch (IOException e) {
             e.printStackTrace();
             // 업로드 실패 시 예외 처리
             return null;
         }
     }
-
-
-
 	
 }

@@ -1,16 +1,12 @@
 package com.kream.member;
-/*
-CREATE TABLE member (
-	    no INT NOT NULL AUTO_INCREMENT,
-	    name VARCHAR(100) NOT NULL,
-	    id VARCHAR(100) NOT NULL,
-	    pw VARCHAR(100) NOT NULL,
-	    address VARCHAR(100),
-	    email VARCHAR(100)NOT NULL,
-	    tel VARCHAR(100) NOT NULL,
-	    PRIMARY KEY (id),
-	    UNIQUE KEY unique_no (no)
-	);
+
+/*create table member(
+no number not null,
+name varchar2(30) not null,
+id varchar2(20) not null primary key,
+pw varchar2(12) not null,
+tel varchar2(20) not null,
+email varchar2(50) not null);
 */
 
 public class MemberDTO {

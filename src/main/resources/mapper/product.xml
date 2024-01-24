@@ -91,6 +91,15 @@
 		JOIN brand BR ON P.brand = BR.brand_no
 	</select>
 	
+	<!-- 상품 상세보기 -->
+	<select id="productContent" resultMap="productResultMap">
+		SELECT * FROM product P
+		JOIN category1 C1 ON P.category1 = C1.cate1_no
+		JOIN category2 C2 ON P.category2 = C2.cate2_no
+		JOIN brand BR ON P.brand = BR.brand_no
+		WHERE product_no = #{no}
+	</select>
+	
 	<!-- 카테고리1 추가 -->
 	<insert id="cate1Insert" parameterType="com.kream.product.Category1DTO">
 		insert into category1 values(default, #{cate1Name})
@@ -123,7 +132,7 @@
 	
 	<!-- 경매 추가 -->
 	<insert id="addAuction" parameterType="com.kream.product.AuctionDTO">
-		insert into auction values(default, #{auctionId}, #{auctionStartDay}, #{auctionStartTime}, #{auctionEndDay}, #{auctionEndTime}, #{auctionStartPrice}, now(), #{auctionStatus})
+		insert into auction values(default, #{auctionId}, #{auctionStartDay}, #{auctionStartTime}, #{auctionEndDay}, #{auctionEndTime}, #{auctionStartPrice}, now(), 0)
 	</insert>
 	
 	<!-- 경매현황 목록 -->
@@ -206,6 +215,11 @@
 	<delete id="deleteProduct">
 		DELETE FROM product WHERE product_no = #{no}
 	</delete>
+	
+	<!-- S3버킷에서 상품이미지 삭제 -->
+	<select id="imgName" resultMap="productResultMap">
+		SELECT image FROM product WHERE product_no = #{no}
+	</select>
 	
 	<!-- 경매 상세보기 -->
 	<select id="contentAuction" resultMap="auction">

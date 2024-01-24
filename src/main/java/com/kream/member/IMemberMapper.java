@@ -1,5 +1,6 @@
 package com.kream.member;
 
+
 import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -18,5 +19,9 @@ public interface IMemberMapper {
 	ArrayList<MemberDTO> memberInfo(int begin, int end, String select, String search);
 
 	int totalCount(String select, String search);
+
+	
+
+	
 
 }

@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>index</title>
-<script src="/js/dbQuiz.js"></script>
+
 </head>
     <script>
     
@@ -23,6 +23,31 @@
       }
     
    
+  
+    function agreeCheck() {
+    	let check1 = document.getElementById('check1');
+    	let check2 = document.getElementById('check2');
+    	let check3 = document.getElementById('check3');
+
+    	if (!check1.checked) {
+    		alert("1.회원가입약관의 내용에 동의하셔야 회원가입 하실 수 있습니다.");
+    		check1.focus();
+    		return false;
+    	}
+    	if (!check2.checked) {
+    		alert("2.개인정보처리방침안내의 내용에 동의하셔야 회원가입 하실 수 있습니다.");
+    		check2.focus();
+    		return false;
+    	}
+    	if (!check3.checked) {
+    		alert("3.14세 이상 가입 하실 수 있습니다");
+    		check3.focus();
+    		return false;
+    	}
+    	var f = document.getElementById('f');
+    	f.submit();
+    }
+
     </script>
 <style>
 .card{width: 800px; margin: 0 auto;}
@@ -96,7 +121,7 @@
 					<div tabindex="0" class="form-control" align="center" style="height: 150px; width : 800px; border:1px solid #dfe0df; margin-top: 5px; margin-bottom:20px; border-radius: 4px; padding: 12px 14px; overflow-y: auto; background:#fff; color:#000;">
 						제1조 목적<br>
 <br>
-본 이용약관은 “멍냥고홈”(이하 "멍냥고홈")의 서비스의 이용조건과 운영에 관한 제반사항 규정을 목적으로 합니다.<br>
+본 이용약관은 “ASTA”(이하 "멍냥고홈")의 서비스의 이용조건과 운영에 관한 제반사항 규정을 목적으로 합니다.<br>
 <br>
 제2조 용어의 정의<br>
 <br>

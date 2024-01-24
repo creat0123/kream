@@ -45,6 +45,8 @@ public interface ProductMapper {
 	int editProductProc(ProductDTO dto);
 
 	int deleteProduct(int no);
+	
+	ProductDTO imgName(int no);
 
 	AuctionDTO contentAuction(int no);
 
@@ -61,5 +63,7 @@ public interface ProductMapper {
 	List<AuctionDTO> bidResult(String sessionId);
 
 	ProductDTO getProduct(int productNo);
+
+	ProductDTO productContent(int no);
 	
 }
