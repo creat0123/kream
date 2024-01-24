@@ -88,7 +88,6 @@ public class MemberController {
 	public String update(MemberDTO member, Model model) {
 		
 		String id = member.getId();
-		System.out.println(id);
 		service.userInfo(model, id);
 		return "member/update";
 	}
@@ -110,7 +109,6 @@ public class MemberController {
 	
 	@RequestMapping("userInfo")
 	public String userInfo(Model model, RedirectAttributes ra, String id) {
-		System.out.println(id);
 		
 		if(id == null || id.trim().isEmpty()) //아이디 값이 없을 때, 관리자가 수정 한 뒤
 			id = (String)session.getAttribute("targetid");
