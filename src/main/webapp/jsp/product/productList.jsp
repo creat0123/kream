@@ -45,7 +45,7 @@
 <body>
 	<h3 align="center">상품목록</h3>
 	<div align="center">
-		<div class="buttons" style="text-align: left; margin-left: 10%;">
+		<div class="buttons" style="text-align: left; margin-left: 20%;">
 			<button type="button" onclick="window.open(
 				'InsertCategory1', 'InsertCategory1', 'width=300, height=200, top=200, left=300');"
 					style="position: relative;">카테고리1 등록</button>
@@ -56,7 +56,7 @@
 				'InsertBrand', 'InsertBrand', 'width=350, height=300, top=200, left=300');"
 					style="position: relative;">브랜드 등록</button>
 		</div>
-		<div class="buttons" style="text-align: right; margin-right: 10%; margin-bottom: 10px; margin-top:-24px;">
+		<div class="buttons" style="text-align: right; margin-right: 20%; margin-bottom: 10px; margin-top:-24px;">
 			<a href="insert"><button>상품등록</button></a>
 			<a href="auctionList"><button>경매목록</button></a>
 		</div>
@@ -68,20 +68,18 @@
 		<c:otherwise>
 			<table border="1" align="center">
 				<tr>
-					<th>상품번호</th>
+					<th style="width: 40px;">상품번호</th>
 					<th>모델번호</th>
-					<th>카테고리1</th>
-					<th>카테고리2</th>
+					<th>카테고리</th>
 					<th>브랜드</th>
-					<th>상품이름(한글)</th>
-					<th>상품이름(영어)</th>
-					<th>상품설명</th>
+					<th style="width: 120px;">상품이름</th>
+					<th style="width: 150px;">상품설명</th>
 					<th>출시가격</th>
 					<th>출시일</th>
-					<th>상품 등록일</th>
+					<th style="width: 90px;">상품 등록일</th>
 					<th>색상</th>
 					<th>사이즈</th>
-					<th>사진</th>
+					<th style="width: 200px;">사진</th>
 					<th>수정</th>
 					<th>삭제</th>
 					<th>경매등록</th>
@@ -90,12 +88,10 @@
 					<tr>
 						<td>${product.productNo }</td>
 						<td>${product.productId }</td>
-						<td>${product.cate1Name }</td>
-						<td>${product.cate2Name }</td>
+						<td>${product.cate1Name } / ${product.cate2Name }</td>
 						<td>${product.brandName }</td>
-						<td>${product.nameKr }</td>
-						<td>${product.nameEn }</td>
-						<td>${product.content }</td>
+						<td style="font-size: 14px;">${product.nameKr }<br>(${product.nameEn })</td>
+						<td style="font-size: 12px;">${product.content }</td>
 						<td><fmt:formatNumber value="${product.firstPrice}" pattern="#,###" /></td>
 						<td><fmt:formatDate value="${product.releaseDay}" pattern="yyyy-MM-dd" /></td>
 						<td><fmt:formatDate value="${product.registDay}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
@@ -105,7 +101,7 @@
 							<%-- <img th:src="@{/img/product/ + ${product.image}}" alt="Product Image" /> --%>
 							<%-- <img src="/img/product/${product.image}" alt="Product Image" /> --%>
 							<img src="https://asta-s3.s3.ap-northeast-2.amazonaws.com/image/${product.image }"
-								alt="Product Image" />
+								alt="Product Image" width="200px"/>
 						</td>
 						<td><button onclick="openEditAuction(${product.productNo})" style="position: relative;">edit</button></td>
 						<td><button onclick="deleteCheck(${product.productNo})">delete</button></td>

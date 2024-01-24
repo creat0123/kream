@@ -80,7 +80,6 @@
 					<th>상품정보</th>
 					<th>경매 시작일</th>
 					<th>경매 종료일</th>
-					<th>경매 시간</th>
 					<th>경매 시작가</th>
 					<!-- <th>경매 등록시간</th> -->
 					<th>경매 현황</th>
@@ -91,9 +90,8 @@
 					<tr>
 						<td onclick='openAuction(${auction.auctionNo})'>${auction.auctionNo }</td>
 						<td onclick='openAuction(${auction.auctionNo})'>${auction.product.nameKr} | ${auction.product.color} | ${auction.product.size}</td>
-						<td><fmt:formatDate value="${auction.auctionStartDay}" pattern="yyyy-MM-dd" /></td>
-						<td><fmt:formatDate value="${auction.auctionEndDay}" pattern="yyyy-MM-dd" /></td>
-						<td>${auction.auctionStartTime } ~ ${auction.auctionEndTime }</td>
+						<td><fmt:formatDate value="${auction.auctionStartDay}" pattern="yyyy-MM-dd" /><br>${auction.auctionStartTime }</td>
+						<td><fmt:formatDate value="${auction.auctionEndDay}" pattern="yyyy-MM-dd" /><br>${auction.auctionEndTime }</td>
 						<td>₩<fmt:formatNumber value="${auction.auctionStartPrice}" pattern="#,###" /></td>
 						<%-- <td><fmt:formatDate value="${auction.auctionRegist}" pattern="yyyy-MM-dd HH:mm:ss" /></td> --%>
 						<td>${auction.statusName }</td>
