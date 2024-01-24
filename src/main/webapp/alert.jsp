@@ -8,7 +8,7 @@
 <script type="text/javascript">
     var msg = "${msg}";
     if (msg && msg.trim() !== "") {
-        alert(msg);
+        //alert("${sessionScope.id}님 어서오세요.");
         location.href = "index";
     }
 </script>
