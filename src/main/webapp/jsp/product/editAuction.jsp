@@ -92,17 +92,6 @@ $(document).ready(function() {
 						oninput="formatAmount(this)" required size="7"></td>
 				</tr>
 				<tr>
-					<td>경매 현황 :</td>
-					<td>
-						<select name="auctionStatus">
-							<option value="${edit.statusNo }">==${edit.statusName }==</option>
-							<c:forEach var="status" items="${status }">
-								<option value="${status.statusNo }">${status.statusName }</option>
-							</c:forEach>
-						</select>
-					</td>
-				</tr>
-				<tr>
 					<td align="center" colspan="2">
 					<input type="submit" value="수정">
 					<input type="button" value="취소" onclick="window.close()">

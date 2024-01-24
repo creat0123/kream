@@ -166,8 +166,7 @@
 		auction_end_day = #{auctionEndDay},
 		auction_end_time = #{auctionEndTime},
 		auction_start_price = #{auctionStartPrice},
-		auction_regist = #{auctionRegist},
-		auction_status = #{auctionStatus}
+		auction_regist = #{auctionRegist}
 	WHERE auction_no = #{auctionNo}
 	</update>
 	
