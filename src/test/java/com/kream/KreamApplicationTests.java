@@ -9,5 +9,4 @@ class KreamApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
