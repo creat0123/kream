@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-RUN apk --no-cache add openjdk17 maven
+RUN apk --no-cache add openjdk17 maven add curl
 
 WORKDIR /app
 
