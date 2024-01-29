@@ -29,7 +29,7 @@ $(document).ready(function() {
             data: formData,
             contentType: false,
             processData: false,
-            data: $('#insertForm').serialize(), // 폼 데이터 전송
+            //data: $('#insertForm').serialize(), // 폼 데이터 전송
             success: function(data) {
             	var msg = data.msg;
                 if (msg === 'success') {

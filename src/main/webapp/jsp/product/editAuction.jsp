@@ -64,7 +64,7 @@ $(document).ready(function() {
 					</th>
 				</tr>
 				<tr>
-					<td>상품번호 :</td>
+					<td>경매번호 :</td>
 					<td><input type="hidden" name="auctionNo" value="${edit.auctionNo }">${edit.auctionNo }</td>
 				</tr>
 				<tr>

@@ -9,7 +9,7 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script type="text/javascript">
 	function openEditAuction(auctionNo) {
-		window.open('editAuction?no=' + auctionNo, 'EditAuction', 'width=520, height=400, top=150, left=700');
+		window.open('editAuction?no=' + auctionNo, 'EditAuction', 'width=350, height=350, top=170, left=700');
 	}
 	function deleteCheck(auctionNo) {
 		result = confirm('진짜로 삭제하겠습니까?');
@@ -74,7 +74,7 @@
 					<button onclick="updateAuctionStatus()">현황 업데이트</button>
 				</div>
 			</div>
-			<table border="1" align="center">
+			<table border="1" align="center" style="text-align: center;">
 				<tr>
 					<th>경매번호</th>
 					<th>상품정보</th>

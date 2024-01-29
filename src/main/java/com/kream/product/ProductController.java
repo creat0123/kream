@@ -97,6 +97,7 @@ public class ProductController {
 	
 	@RequestMapping("InsertCategory2Proc")
 	public ResponseEntity<Map<String, String>> InsertCategory2Proc(Category2DTO dto, Model model, RedirectAttributes ra) {
+		System.out.println("cate2 "+dto.getCate2Cate1() + dto.getCate2Name());
 		Map<String, String> response = new HashMap<>();
 		String msg = service.cate2Proc(dto);
 		response.put("msg", msg);

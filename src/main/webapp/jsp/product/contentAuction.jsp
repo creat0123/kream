@@ -65,35 +65,35 @@ $(document).ready(function() {
         $('#bidForm input[type="text"]').prop('disabled', true);
         $('#submit').prop('disabled', true);
         //alert('이 경매는 종료되었습니다.');
+    } else {
+	    $('#bidForm').submit(function(e) {
+	        e.preventDefault(); // 폼 제출을 막음
+			
+	        $.ajax({
+	            url: 'auctionBid',
+	            method: 'POST',
+	            data: $('#bidForm').serialize()+'&no='+${contents.auctionNo }, // 폼 데이터 전송
+	            success: function(data) {
+	            	var msg = data.msg;
+	                if (msg === 'success') {
+	                    alert('입찰성공');
+	                    location.reload();
+	            	}else if (msg === 'over') {
+	            		alert('현재 입찰가보다 높은금액을 입력해주세요');
+	            		location.reload();
+	            	}else if (msg === 'login') {
+	            		alert('로그인을 해주세요');
+	            		location.href="/login";
+	            	}else {
+	                    alert('오류발생');
+	                }
+	            },
+	            error: function(xhr, status, error) {
+	                console.log(error);
+	            }
+	        });
+	    });
     }
-	
-    $('#bidForm').submit(function(e) {
-        e.preventDefault(); // 폼 제출을 막음
-		
-        $.ajax({
-            url: 'auctionBid',
-            method: 'POST',
-            data: $('#bidForm').serialize()+'&no='+${contents.auctionNo }, // 폼 데이터 전송
-            success: function(data) {
-            	var msg = data.msg;
-                if (msg === 'success') {
-                    alert('입찰성공');
-                    location.reload();
-            	}else if (msg === 'over') {
-            		alert('현재 입찰가보다 높은금액을 입력해주세요');
-            		location.reload();
-            	}else if (msg === 'login') {
-            		alert('로그인을 해주세요');
-            		location.href="/login";
-            	}else {
-                    alert('오류발생');
-                }
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-            }
-        });
-    });
 });
 </script>
 <script>

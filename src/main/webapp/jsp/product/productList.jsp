@@ -66,7 +66,7 @@
 			<h3>등록된 데이터가 없습니다</h3>
 		</c:when>
 		<c:otherwise>
-			<table border="1" align="center">
+			<table border="1" align="center" style="text-align: center;">
 				<tr>
 					<th style="width: 40px;">상품번호</th>
 					<th>모델번호</th>
@@ -92,9 +92,9 @@
 						<td>${product.brandName }</td>
 						<td style="font-size: 14px;">${product.nameKr }<br>(${product.nameEn })</td>
 						<td style="font-size: 12px;">${product.content }</td>
-						<td><fmt:formatNumber value="${product.firstPrice}" pattern="#,###" /></td>
-						<td><fmt:formatDate value="${product.releaseDay}" pattern="yyyy-MM-dd" /></td>
-						<td><fmt:formatDate value="${product.registDay}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+						<td><fmt:formatNumber value="${product.firstPrice}" pattern="#,###" />원</td>
+						<td><fmt:formatDate value="${product.releaseDay}" pattern="yyyy/MM/dd" /></td>
+						<td><fmt:formatDate value="${product.registDay}" pattern="yyyy/MM/dd HH:mm:ss" /></td>
 						<td>${product.color }</td>
 						<td>${product.size }</td>
 						<td><%-- ${product.image } --%>
