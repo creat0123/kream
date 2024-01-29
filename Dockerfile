@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-RUN apk --no-cache add openjdk17 maven
+RUN apk --no-cache add openjdk17 maven curl
 
 WORKDIR /app
 
@@ -15,4 +15,3 @@ RUN chmod +x mvnw && ./mvnw dependency:resolve
 COPY src ./src
 
 CMD ["./mvnw", "spring-boot:run"]
-
