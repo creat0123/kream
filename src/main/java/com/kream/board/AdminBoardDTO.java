@@ -10,6 +10,8 @@ CREATE TABLE admin_board (
 );
 */
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class AdminBoardDTO {
 	private int no;
 	private String title;
@@ -17,6 +19,7 @@ public class AdminBoardDTO {
 	private String time;
 	private String content;
 	private String image;
+	private MultipartFile imageFile;
 
 	public int getNo() {
 		return no;
@@ -65,5 +68,14 @@ public class AdminBoardDTO {
 	public void setImage(String image) {
 		this.image = image;
 	}
+
+	public MultipartFile getImageFile() {
+		return imageFile;
+	}
+
+	public void setImageFile(MultipartFile imageFile) {
+		this.imageFile = imageFile;
+	}
+	
 
 }

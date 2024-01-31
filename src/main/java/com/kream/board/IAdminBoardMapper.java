@@ -13,7 +13,7 @@ public interface IAdminBoardMapper {
 
 	List<AdminBoardDTO> notice(int begin, int end, String select, String search);
 
-	void adminBoardWriteProc(AdminBoardDTO board);
+	int adminBoardWriteProc(AdminBoardDTO board);
 
 	AdminBoardDTO adminBoardContent(int n);
 

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.annotation.SessionScope;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -40,8 +41,13 @@ public class AdminBoardController {
 	}
 
 	@RequestMapping("adminBoardWriteProc")
-	public String adminBoardWriteProc(MultipartHttpServletRequest multi, RedirectAttributes ra) {
-		String path = service.adminBoardWriteProc(multi);
+	public String adminBoardWriteProc(MultipartHttpServletRequest multi, RedirectAttributes ra, AdminBoardDTO dto) {
+		MultipartFile imageFile = dto.getImageFile();
+	    if (imageFile != null && !imageFile.isEmpty()) {
+	    	String fileName = service.uploadImage(imageFile);
+	    	dto.setImage(fileName);
+	    }
+		String path = service.adminBoardWriteProc(dto);
 		return path;
 	}
 
@@ -62,7 +68,7 @@ public class AdminBoardController {
 		String sessionId = (String) session.getAttribute("id");
 		if (sessionId == null)
 			return "redirect:login";
-
+		
 		String msg = service.adminBoardDeleteProc(no);
 		if (msg.equals("관리자만 삭제 할 수 있습니다."))
 			return "redirect:adminBoardContent?no=" + no;
