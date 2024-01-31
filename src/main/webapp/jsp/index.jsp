@@ -12,7 +12,6 @@
 	margin-left: 50px;
 	margin-right: 133px;
 }
-
 .start-effect-container {
 	position: fixed;
 	top: 0;
