@@ -6,11 +6,8 @@
 <mapper namespace="com.kream.board.IAdminBoardMapper">
 
 	<insert id="adminBoardWriteProc">
-		<selectKey order="BEFORE" keyProperty="no" resultType="int">
-			SELECT COALESCE(MAX(no), 0) + 1 FROM admin_board
-		</selectKey>
 		INSERT INTO admin_board 
-		VALUES(#{no}, #{title}, #{id}, #{time}, #{content}, #{image})
+		VALUES(default, #{title}, #{id}, #{time}, #{content}, #{image})
 	</insert>
     
     <select id="totalCount">
@@ -52,4 +49,5 @@
     <update id="adminBoardModify">
     	UPDATE admin_board SET title=#{title}, content=#{content}, image=#{image} WHERE no=#{no}
     </update>
+    
 </mapper>

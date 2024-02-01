@@ -100,12 +100,11 @@
 </style>
 <div align="center" style="margin-top: 150px;">
 
-	<form action="adminBoardWriteProc" method='post'
-		enctype="multipart/form-data">
+	<form action="adminBoardWriteProc" method='post' enctype="multipart/form-data">
+		<input type="hidden" name="id" value="${sessionScope.id }"> 
 		<div class="card">
 			<div class="card-write">
 				<table>
-
 					<tr>
 						<th width="100px">제목</th>
 						<td><input style="width: 100%;" type="text" name="title"></td>
@@ -117,21 +116,22 @@
 					</tr>
 					<tr>
 						<th>이미지첨부</th>
-						<td><input type="file" name="image"></td>
+						<td><input type="file" name="imageFile"></td>
 					</tr>
 					</div>
 					<tr>
 						<div class="card-write">
 							<div class="btn-w">
-								<td colspan="2" align="center"><input type="submit"
-									style="cursor: pointer;" value="글쓰기"> <input
-									type="button" style="cursor: pointer;" value="목록"
-									onclick="location.href='notice'"></td>
+								<td colspan="2" align="center">
+									<input type="submit" style="cursor: pointer;" value="글쓰기"> 
+									<input type="button" style="cursor: pointer;" value="목록" onclick="location.href='notice'">
+								</td>
 							</div>
 						</div>
 					</tr>
 				</table>
 			</div>
+		</div>
 	</form>
 </div>
 

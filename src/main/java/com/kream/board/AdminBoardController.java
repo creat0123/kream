@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class AdminBoardController {
 
+	@Autowired IAdminBoardMapper mapper;
 	@Autowired AdminBoardService service;
 	@Autowired HttpSession session;
 	
@@ -92,14 +93,34 @@ public class AdminBoardController {
 	}
 
 	@RequestMapping("adminBoardModifyProc")
-	public String adminBoardModifyProc(MultipartHttpServletRequest multi, String no) {
-		System.out.println("컨트롤러 되나");
+	public String adminBoardModifyProc(MultipartHttpServletRequest multi, int no, AdminBoardDTO dto) {
 		String sessionId = (String) session.getAttribute("id");
 		if (sessionId == null || !sessionId.equals("admin"))
 			return "redirect:login";
-
-		String path = service.adminBoardModifyProc(multi, no);
+		
+		MultipartFile imageFile = dto.getImageFile();
+		if (imageFile != null && !imageFile.isEmpty()) {
+			String fileName = service.uploadImage(imageFile);
+			dto.setImage(fileName);
+			System.out.println("Uploaded image file: " + fileName);
+		} else {
+			// 새로운 이미지가 선택되지 않았을 경우, 기존 이미지를 그대로 사용
+			AdminBoardDTO existingBoard = mapper.adminBoardContent(no);
+			dto.setImage(existingBoard.getImage());
+		}
+		
+		String path = service.adminBoardModifyProc(no, dto);
 		return path;
 	}
 
 }
+
+
+
+
+
+
+
+
+
+

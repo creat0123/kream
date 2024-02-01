@@ -19,7 +19,9 @@ public interface IAdminBoardMapper {
 
 	void adminBoardDeleteProc(int n);
 
-	void adminBoardModify(AdminBoardDTO board);
+	int adminBoardModify(AdminBoardDTO board);
+
+	AdminBoardDTO imgName(int n);
 	
 	
 }

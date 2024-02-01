@@ -114,7 +114,7 @@
 			</tr>
 			<tr>
 				<th>이미지첨부</th>
-				<td><input type="file" name="image"></td>
+				<td><input type="file" name="imageFile"></td>
 			</tr>
 			</div>
 			<tr>

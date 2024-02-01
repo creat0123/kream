@@ -1,6 +1,5 @@
 package com.kream.board;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
@@ -65,6 +63,9 @@ public class AdminBoardService {
 		if (title == null || title.trim().isEmpty()) {
 			return "redirect:adminBoardWrite";
 		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		dto.setTime(sdf.format(new Date()));
 		
 		System.out.println("이미지 "+dto.getImage());
 		int result = mapper.adminBoardWriteProc(dto);
@@ -136,67 +137,13 @@ public class AdminBoardService {
 		return "오류가 발생했습니다";
 	}
 
-	public String adminBoardModifyProc(MultipartHttpServletRequest multi, String no) {
-		int n = 1;
-		try {
-			n = Integer.parseInt(no);
-		} catch (Exception e) {
-			return null;
-		}
-		
-		String sessionId = (String) session.getAttribute("id");
-		String title = multi.getParameter("title");
-		if (title == null || title.trim().isEmpty()) {
-			return "redirect:adminBoardModify";
-		}
-
-		AdminBoardDTO board = new AdminBoardDTO();
-		board.setNo(n);
-		board.setTitle(title);
-		board.setContent(multi.getParameter("content"));
-		board.setId(sessionId);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		board.setTime(sdf.format(new Date()));
-		board.setImage("");
-
-		MultipartFile file = multi.getFile("image");
-		if (file.getSize() != 0) { // 클라이언트가 파일을 업로드 했다면
-			// 파일의 이름
-			sdf = new SimpleDateFormat("yyyyMMddHHmmss-");
-			String fileTime = sdf.format(new Date());
-			String fileName = file.getOriginalFilename();
-
-//			String suffix = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
-//			if (suffix.equalsIgnoreCase("jpeg") == false)
-//				return "redirect:adminBoardModify";
-
-			// 파일의 저장 경로
-			String fileSaveDirectory = "C:\\DailyJava\\boot_workspace\\kream\\src\\main\\resources\\static\\img\\"
-					+ sessionId;
-			File f = new File(fileSaveDirectory);
-			if (f.exists() == false) {
-				f.mkdirs();
-			}
-
-			String fullPath = fileSaveDirectory + "\\" + fileTime + fileName;
-			board.setImage(fullPath);
-			f = new File(fullPath);
-			try {
-				file.transferTo(f);
-			} catch (Exception e) {
-				e.printStackTrace();
-				board.setImage("");
-			}
-
-			/*
-			 * file.transferTo(); //파일을 이동시키는 기능 <input type="file" name="upfile"> 을 사용하여
-			 * 서버에 파일 데이터가 전달되면 웹서버가 임시파일로 저장을 함. 임시파일로 저장된 파일을 개발자가 원하는 경로로 이동시킬 때
-			 * file.transferTo()를 사용함.
-			 */
-		}
-
-		mapper.adminBoardModify(board);
-		return "redirect:notice";
+	public String adminBoardModifyProc(int n, AdminBoardDTO dto) {
+		System.out.println("이미지 "+dto.getImage());
+		//AdminBoardDTO dto = mapper.imgName(n);
+		int result = mapper.adminBoardModify(dto);
+		if (result == 1)
+			return "redirect:notice";
+		return "redirect:adminBoardModify";
 
 	}
 

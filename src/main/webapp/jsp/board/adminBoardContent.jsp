@@ -180,7 +180,7 @@
 		</div>
 		<div class="contents">
 			<c:if test="${board.image != null}">
-				<img src="/img/admin/${board.image }">
+				<img src="https://asta-s3.s3.ap-northeast-2.amazonaws.com/board/${board.image}">
 				<br>
 			</c:if>
 			${sessionScope.viewGetContent }
