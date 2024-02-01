@@ -82,7 +82,6 @@
           eventInfoEl.style.top = y + 'px';
           eventInfoEl.style.display = 'block';
         }
-
         function hideEventInfo() {
           eventInfoEl.style.display = 'none';
         }
