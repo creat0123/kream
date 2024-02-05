@@ -29,7 +29,7 @@
 
             try {
               Class.forName("org.mariadb.jdbc.Driver");
-              conn = DriverManager.getConnection("jdbc:mariadb://ec2-43-203-197-171.ap-northeast-2.compute.amazonaws.com:3306/kream", "kream", "1234");
+              conn = DriverManager.getConnection("jdbc:mariadb://ec2-43-200-253-174.ap-northeast-2.compute.amazonaws.com:3306/kream", "kream", "1234");
               //conn = DriverManager.getConnection("jdbc:mariadb://ec2-52-78-47-224.ap-northeast-2.compute.amazonaws.com:3306/lyh", "lyh", "1234");
               stmt = conn.createStatement();
               rs = stmt.executeQuery("SELECT a.auction_start_day, p.name_Kr FROM auction a JOIN product p ON a.auction_id = p.product_no");
