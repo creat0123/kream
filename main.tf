@@ -152,7 +152,7 @@ data "aws_key_pair" "ec2-key" {
   key_name = "bootServer"
 }
 resource "aws_instance" "BastionHost" {
-  ami                         = "ami-0bc4327f3aabf5b71"
+  ami                         = "ami-****"
   instance_type               = "t3.small"
   key_name                    = data.aws_key_pair.ec2-key.key_name
   subnet_id                   = module.vpc.public_subnets[0]
@@ -220,7 +220,7 @@ module "DB_SG" {
   ]
 }
 resource "aws_instance" "nat_ec2" {
-  ami                         = "ami-0c2d3e23e757b5d84"
+  ami                         = "ami-****"
   subnet_id                   = module.vpc.public_subnets[1]
   instance_type               = "t3.micro"
   key_name                    = data.aws_key_pair.ec2-key.key_name
@@ -232,7 +232,7 @@ resource "aws_instance" "nat_ec2" {
   }
 }
 resource "aws_instance" "MariaDB-ec2" {
-  ami                         = "ami-0c8e089ece7b025e8"
+  ami                         = "ami-****"
   subnet_id                   = module.vpc.public_subnets[0]
   instance_type               = "t2.micro"
   key_name                    = data.aws_key_pair.ec2-key.key_name
@@ -290,7 +290,7 @@ output "bastion_ip" {
   description = "bastion-host public IP"
 }
 resource "aws_instance" "Jenkins-2a" {
-  ami                         = "ami-02a6b66d45fb785e8"
+  ami                         = "ami-****"
   instance_type               = "t3.small"
   key_name                    = data.aws_key_pair.ec2-key.key_name
   subnet_id                   = module.vpc.public_subnets[0]
