@@ -79,7 +79,7 @@
             <!-- <img src="/img/JJANG3.png" alt="Product 1"> -->
             <%-- <img src="/img/product/${auction.product.image}" alt="Product Image" onclick='openAuction(${auction.auctionNo})'> /> --%>
             <a href="contentAuction?no=${auction.auctionNo }">
-			    <img src="https://asta-s3.s3.ap-northeast-2.amazonaws.com/image/${contents.product.image}${auction.product.image}" alt="Product Image">
+			    <img src="https://****/****/${contents.product.image}${auction.product.image}" alt="Product Image">
 			</a>
             <h2>${auction.product.nameKr }</h2>
             <h5>${auction.product.nameEn }</h5>
