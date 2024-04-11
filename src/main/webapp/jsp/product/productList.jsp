@@ -100,7 +100,7 @@
 						<td><%-- ${product.image } --%>
 							<%-- <img th:src="@{/img/product/ + ${product.image}}" alt="Product Image" /> --%>
 							<%-- <img src="/img/product/${product.image}" alt="Product Image" /> --%>
-							<img src="https://asta-s3.s3.ap-northeast-2.amazonaws.com/image/${product.image }"
+							<img src="https://****/****/${product.image }"
 								alt="Product Image" width="200px"/>
 						</td>
 						<td><button onclick="openEditAuction(${product.productNo})" style="position: relative;">edit</button></td>
