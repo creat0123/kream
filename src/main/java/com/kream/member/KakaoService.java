@@ -27,7 +27,7 @@ public class KakaoService {
 	public void getAccessToken(String code) {
 		String requrl = "https://kauth.kakao.com/oauth/token";
 		String reqParam = "grant_type=authorization_code";
-		reqParam += "&client_id=121eaec6c06288e329be3728aa90d173";
+		reqParam += "&client_id=****";
 		reqParam += "&redirect_uri=http://localhost:80/kakaoLogin"; 
 		reqParam += "&code=" + code;
 
@@ -46,8 +46,8 @@ public class KakaoService {
 			ObjectMapper om = new ObjectMapper();
 
 			Map<String, String> map = om.readValue(isr, new TypeReference<Map<String, String>>() {});
-			accessToken = map.get("access_token");
-			System.out.println("accessToken : " + map.get("access_token"));
+			accessToken = map.get("****");
+			System.out.println("**** : " + map.get("****"));
 
 		} catch (Exception e) {
 			e.printStackTrace();
