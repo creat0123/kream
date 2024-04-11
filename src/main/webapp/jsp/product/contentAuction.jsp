@@ -750,7 +750,7 @@ div {
 				<table border="1" style="text-aligin: center;">
 					<tr>
 						<%-- <img src="/img/product/${contents.product.image}" alt="Product Image"> --%>
-						<img src="https://asta-s3.s3.ap-northeast-2.amazonaws.com/image/${contents.product.image}" alt="Product Image">
+						<img src="https://****/****/${contents.product.image}" alt="Product Image">
 					</tr>
 					<tr>
 						<th>경매 시작</th>
